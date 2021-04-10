@@ -16,7 +16,7 @@ class DatabasedStorageTest {
     object Locks : IntIdTable() {
         val host = varchar("host", 256).uniqueIndex()
         val trials = integer("trials")
-        val beginLock = long("beginLock").nullable()
+        val lastRequest = long("lastRequest")
     }
 
     @ExperimentalTime
@@ -25,11 +25,11 @@ class DatabasedStorageTest {
 
         var host by Locks.host
         var trials by Locks.trials
-        private var _beginLock by Locks.beginLock
-        var beginLock: TimeMark?
-            get() = _beginLock?.let { DBTimeSource.DBTimeMark(mark = it) }
+        private var _lastRequest by Locks.lastRequest
+        var lastRequest: TimeMark
+            get() = DBTimeSource.DBTimeMark(mark = _lastRequest)
             set(value) {
-                _beginLock = (value as DBTimeSource.DBTimeMark?)?.mark
+                _lastRequest = (value as DBTimeSource.DBTimeMark).mark
             }
     }
 
@@ -38,7 +38,7 @@ class DatabasedStorageTest {
         override suspend fun getOrNull(host: String): Storage.Requested? = newSuspendedTransaction(db = db) {
             val found = Lock.find { Locks.host eq host }.firstOrNull()
             if (found != null) {
-                Storage.Requested(trial = found.trials, beginLock = found.beginLock)
+                Storage.Requested(trial = found.trials, lastRequest = found.lastRequest)
             } else {
                 null
             }
@@ -51,12 +51,12 @@ class DatabasedStorageTest {
                     Lock.new {
                         this.host = host
                         this.trials = requested.trial
-                        this.beginLock = requested.beginLock
+                        this.lastRequest = requested.lastRequest
                     }
                 } else {
                     entry.apply {
                         this.trials = requested.trial
-                        this.beginLock = requested.beginLock
+                        this.lastRequest = requested.lastRequest
                     }
                 }
             }
@@ -93,7 +93,7 @@ class DatabasedStorageTest {
         val coolDown = 3.seconds
         val rateLimit = RateLimit(RateLimit.Configuration().apply {
             this.limit = limit
-            this.coolDown = coolDown
+            this.timeout = coolDown
             storage = DBStorage(db = db)
         })
 

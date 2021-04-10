@@ -17,16 +17,16 @@ public final class app/softwork/ratelimit/RateLimit$Configuration {
 	public fun <init> ()V
 	public final fun getAlwaysAllow ()Lkotlin/jvm/functions/Function1;
 	public final fun getAlwaysBlock ()Lkotlin/jvm/functions/Function1;
-	public final fun getCoolDown-UwyO8pc ()D
 	public final fun getHost ()Lkotlin/jvm/functions/Function1;
 	public final fun getLimit ()I
 	public final fun getStorage ()Lapp/softwork/ratelimit/Storage;
+	public final fun getTimeout-UwyO8pc ()D
 	public final fun setAlwaysAllow (Lkotlin/jvm/functions/Function1;)V
 	public final fun setAlwaysBlock (Lkotlin/jvm/functions/Function1;)V
-	public final fun setCoolDown-LRDsOJo (D)V
 	public final fun setHost (Lkotlin/jvm/functions/Function1;)V
 	public final fun setLimit (I)V
 	public final fun setStorage (Lapp/softwork/ratelimit/Storage;)V
+	public final fun setTimeout-LRDsOJo (D)V
 }
 
 public final class app/softwork/ratelimit/RateLimit$Feature : io/ktor/application/ApplicationFeature {
@@ -49,7 +49,7 @@ public final class app/softwork/ratelimit/Storage$Requested {
 	public final fun copy (ILkotlin/time/TimeMark;)Lapp/softwork/ratelimit/Storage$Requested;
 	public static synthetic fun copy$default (Lapp/softwork/ratelimit/Storage$Requested;ILkotlin/time/TimeMark;ILjava/lang/Object;)Lapp/softwork/ratelimit/Storage$Requested;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getBeginLock ()Lkotlin/time/TimeMark;
+	public final fun getLastRequest ()Lkotlin/time/TimeMark;
 	public final fun getTrial ()I
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
