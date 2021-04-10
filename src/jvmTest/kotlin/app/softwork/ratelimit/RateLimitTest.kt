@@ -28,7 +28,9 @@ suspend fun RateLimit.test(limit: Int, coolDown: Duration) {
         assertFalse(isAllowed("a"))
     }
     delay(coolDown)
-    repeat(limit) {
+
+    repeat(limit * 2) {
         assertTrue(isAllowed("a"))
+        delay(coolDown)
     }
 }

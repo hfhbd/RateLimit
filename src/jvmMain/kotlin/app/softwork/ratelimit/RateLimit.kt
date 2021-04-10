@@ -19,19 +19,15 @@ public class RateLimit(public val configuration: Configuration) {
         val storage = configuration.storage
         val previous = storage.getOrNull(host)
         if (previous == null) {
-            storage.set(host, Storage.Requested(trial = 1, beginLock = null))
+            storage.set(host, Storage.Requested(trial = 1, lastRequest = storage.timeSource.markNow()))
             return true
         }
         if (previous.trial < configuration.limit) {
-            storage.set(host, previous.copy(trial = previous.trial + 1))
+            storage.set(host, previous.copy(trial = previous.trial + 1, lastRequest = storage.timeSource.markNow()))
             return true
         }
-        val lock = previous.beginLock
-        if (lock == null) {
-            storage.set(host, previous.copy(beginLock = storage.timeSource.markNow()))
-            return false
-        }
-        if (lock.elapsedNow() > configuration.timeout) {
+        val lastRequest = previous.lastRequest
+        if (lastRequest.elapsedNow() > configuration.timeout) {
             storage.remove(host)
             return true
         }

@@ -49,7 +49,7 @@ public final class app/softwork/ratelimit/Storage$Requested {
 	public final fun copy (ILkotlin/time/TimeMark;)Lapp/softwork/ratelimit/Storage$Requested;
 	public static synthetic fun copy$default (Lapp/softwork/ratelimit/Storage$Requested;ILkotlin/time/TimeMark;ILjava/lang/Object;)Lapp/softwork/ratelimit/Storage$Requested;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getBeginLock ()Lkotlin/time/TimeMark;
+	public final fun getLastRequest ()Lkotlin/time/TimeMark;
 	public final fun getTrial ()I
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;

@@ -10,5 +10,5 @@ public interface Storage {
 
     public val timeSource: TimeSource
 
-    public data class Requested(public val trial: Int, public val beginLock: TimeMark?)
+    public data class Requested(public val trial: Int, public val lastRequest: TimeMark)
 }
