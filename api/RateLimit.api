@@ -1,0 +1,57 @@
+public final class app/softwork/ratelimit/InMemory : app/softwork/ratelimit/Storage {
+	public fun <init> ()V
+	public fun getOrNull (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getTimeSource ()Lkotlin/time/TimeSource;
+	public fun remove (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun set (Ljava/lang/String;Lapp/softwork/ratelimit/Storage$Requested;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/softwork/ratelimit/RateLimit {
+	public static final field Feature Lapp/softwork/ratelimit/RateLimit$Feature;
+	public fun <init> (Lapp/softwork/ratelimit/RateLimit$Configuration;)V
+	public final fun getConfiguration ()Lapp/softwork/ratelimit/RateLimit$Configuration;
+	public final fun isAllowed (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/softwork/ratelimit/RateLimit$Configuration {
+	public fun <init> ()V
+	public final fun getAlwaysAllow ()Lkotlin/jvm/functions/Function1;
+	public final fun getAlwaysBlock ()Lkotlin/jvm/functions/Function1;
+	public final fun getCoolDown-UwyO8pc ()D
+	public final fun getHost ()Lkotlin/jvm/functions/Function1;
+	public final fun getLimit ()I
+	public final fun getStorage ()Lapp/softwork/ratelimit/Storage;
+	public final fun setAlwaysAllow (Lkotlin/jvm/functions/Function1;)V
+	public final fun setAlwaysBlock (Lkotlin/jvm/functions/Function1;)V
+	public final fun setCoolDown-LRDsOJo (D)V
+	public final fun setHost (Lkotlin/jvm/functions/Function1;)V
+	public final fun setLimit (I)V
+	public final fun setStorage (Lapp/softwork/ratelimit/Storage;)V
+}
+
+public final class app/softwork/ratelimit/RateLimit$Feature : io/ktor/application/ApplicationFeature {
+	public fun getKey ()Lio/ktor/util/AttributeKey;
+	public fun install (Lio/ktor/application/Application;Lkotlin/jvm/functions/Function1;)Lapp/softwork/ratelimit/RateLimit;
+	public synthetic fun install (Lio/ktor/util/pipeline/Pipeline;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+}
+
+public abstract interface class app/softwork/ratelimit/Storage {
+	public abstract fun getOrNull (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getTimeSource ()Lkotlin/time/TimeSource;
+	public abstract fun remove (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun set (Ljava/lang/String;Lapp/softwork/ratelimit/Storage$Requested;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/softwork/ratelimit/Storage$Requested {
+	public fun <init> (ILkotlin/time/TimeMark;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lkotlin/time/TimeMark;
+	public final fun copy (ILkotlin/time/TimeMark;)Lapp/softwork/ratelimit/Storage$Requested;
+	public static synthetic fun copy$default (Lapp/softwork/ratelimit/Storage$Requested;ILkotlin/time/TimeMark;ILjava/lang/Object;)Lapp/softwork/ratelimit/Storage$Requested;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBeginLock ()Lkotlin/time/TimeMark;
+	public final fun getTrial ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
