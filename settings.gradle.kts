@@ -1,1 +1,1 @@
-rootProject.name = "RateLimit"
+rootProject.name = "ratelimit"
