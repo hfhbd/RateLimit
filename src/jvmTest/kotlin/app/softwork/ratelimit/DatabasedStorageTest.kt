@@ -93,7 +93,7 @@ class DatabasedStorageTest {
         val coolDown = 3.seconds
         val rateLimit = RateLimit(RateLimit.Configuration().apply {
             this.limit = limit
-            this.coolDown = coolDown
+            this.timeout = coolDown
             storage = DBStorage(db = db)
         })
 

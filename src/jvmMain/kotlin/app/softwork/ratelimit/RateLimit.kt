@@ -31,7 +31,7 @@ public class RateLimit(public val configuration: Configuration) {
             storage.set(host, previous.copy(beginLock = storage.timeSource.markNow()))
             return false
         }
-        if (lock.elapsedNow() > configuration.coolDown) {
+        if (lock.elapsedNow() > configuration.timeout) {
             storage.remove(host)
             return true
         }
@@ -44,7 +44,7 @@ public class RateLimit(public val configuration: Configuration) {
         public var alwaysBlock: (String) -> Boolean = { false }
         public var storage: Storage = InMemory()
         public var limit: Int = 1000
-        public var coolDown: Duration = Duration.hours(1)
+        public var timeout: Duration = Duration.hours(1)
     }
 
     public companion object Feature : ApplicationFeature<Application, Configuration, RateLimit> {
