@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform") version "1.5.0-M2"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.5.0"
+    `maven-publish`
 }
 
 group = "app.softwork"
@@ -43,6 +44,19 @@ kotlin {
 
                 // EPL 1.0, https://github.com/h2database/h2database/releases/latest
                 runtimeOnly("com.h2database:h2:1.4.200")
+            }
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+            credentials {
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
             }
         }
     }
