@@ -1,6 +1,6 @@
 # RateLimit
 
-Limit the request sent to a Ktor server with a timeout.
+Limit the requests sent to a Ktor server with a timeout.
 
 > #### Currently, this library is not published.
 
