@@ -35,9 +35,21 @@ public class RateLimit(public val configuration: Configuration) {
     }
 
     public class Configuration {
+        public fun host(block: (ApplicationCall) -> String) {
+            host = block
+        }
         public var host: (ApplicationCall) -> String = { it.request.local.remoteHost }
+
+        public fun alwaysAllow(block: (String) -> Boolean) {
+            alwaysAllow = block
+        }
         public var alwaysAllow: (String) -> Boolean = { false }
+
+        public fun alwaysBlock(block: (String) -> Boolean) {
+            alwaysBlock = block
+        }
         public var alwaysBlock: (String) -> Boolean = { false }
+
         public var storage: Storage = InMemory()
         public var limit: Int = 1000
         public var timeout: Duration = Duration.hours(1)
