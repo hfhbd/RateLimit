@@ -1,35 +1,38 @@
 package app.softwork.ratelimit
 
+import app.softwork.ratelimit.RateLimit.RequestResult.*
 import kotlinx.coroutines.*
 import kotlin.test.*
 import kotlin.time.*
 
 @ExperimentalTime
-suspend fun RateLimit.test(limit: Int, coolDown: Duration) {
+suspend fun RateLimit.test(limit: Int, timeout: Duration) {
     repeat(limit) {
-        assertTrue(isAllowed("a"))
+        assertEquals(Allow, isAllowed("a"))
     }
 
     repeat(limit * 2) {
-        assertFalse(isAllowed("a"))
+        assertTrue(isAllowed("a") is Forbid)
     }
     delay(Duration.seconds(1))
     repeat(limit) {
-        assertFalse(isAllowed("a"))
+        assertTrue(isAllowed("a") is Forbid)
     }
-    delay(coolDown)
-    assertTrue(isAllowed("a"))
+    delay(timeout)
+    assertEquals(Allow, isAllowed("a"))
 
     repeat(limit) {
-        assertTrue(isAllowed("a"))
+        assertEquals(Allow, isAllowed("a"))
     }
 
     repeat(limit * 2) {
-        assertFalse(isAllowed("a"))
+        val result = isAllowed("a")
+        assertTrue(result is Forbid)
+        assertTrue(result.retryAfter < timeout)
     }
 
     repeat(limit * 2) {
-        delay(coolDown)
-        assertTrue(isAllowed("a"))
+        delay(timeout)
+        assertEquals(Allow, isAllowed("a"))
     }
 }

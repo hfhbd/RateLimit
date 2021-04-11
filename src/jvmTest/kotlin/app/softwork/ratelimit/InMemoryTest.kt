@@ -9,11 +9,11 @@ class InMemoryTest {
     @Test
     fun testInMemory() = runBlocking {
         val limit = 3
-        val coolDown = 3.seconds
+        val timeout = 3.seconds
         val rateLimit = RateLimit(RateLimit.Configuration().apply {
             this.limit = limit
-            this.timeout = coolDown
+            this.timeout = timeout
         })
-        rateLimit.test(limit = limit, coolDown = coolDown)
+        rateLimit.test(limit = limit, timeout = timeout)
     }
 }
