@@ -24,7 +24,7 @@ jobs:
       - name: Upload Docs
         uses: actions/upload-artifact@v2
         with:
-          path: build/dokka
+          path: build/dokka/html
   docs:
     runs-on: ubuntu-latest
     steps:
