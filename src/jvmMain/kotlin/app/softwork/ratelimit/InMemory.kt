@@ -2,6 +2,9 @@ package app.softwork.ratelimit
 
 import kotlin.time.*
 
+/**
+ * A InMemory [Storage] persisting the request information in a [Map].
+ */
 @ExperimentalTime
 public class InMemory : Storage {
     private val storage = mutableMapOf<String, Storage.Requested>()
@@ -15,5 +18,8 @@ public class InMemory : Storage {
         storage.remove(host)
     }
 
+    /**
+     *  The timeSource is the [TimeSource.Monotonic].
+     */
     override val timeSource: TimeSource = TimeSource.Monotonic
 }

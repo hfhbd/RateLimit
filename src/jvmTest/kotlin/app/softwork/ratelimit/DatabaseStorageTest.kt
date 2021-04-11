@@ -12,7 +12,7 @@ import kotlin.test.*
 import kotlin.time.*
 
 @ExperimentalTime
-class DatabasedStorageTest {
+class DatabaseStorageTest {
     object Locks : IntIdTable() {
         val host = varchar("host", 256).uniqueIndex()
         val trials = integer("trials")

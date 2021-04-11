@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform") version "1.5.0-M2"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.5.0"
+    id("org.jetbrains.dokka") version "1.4.30"
     `maven-publish`
 }
 
@@ -9,13 +10,14 @@ version = "0.0.2"
 
 repositories {
     mavenCentral()
+    jcenter() // dokka
 }
 
 kotlin {
     explicitApi()
 
     jvm()
-    
+
     sourceSets {
         // Apache 2, https://github.com/ktorio/ktor/releases/latest
         val ktorVersion = "1.5.3"
@@ -47,6 +49,26 @@ kotlin {
             }
         }
     }
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+    dokkaSourceSets {
+        configureEach {
+            moduleName by "RateLimit"
+            includes.from("README.md")
+            reportUndocumented by true
+            val sourceSetName = name
+            sourceLink {
+                localDirectory by file("src/$sourceSetName/kotlin")
+                remoteUrl by uri("https://github.com/hfhbd/RateLimit/tree/master/src/$sourceSetName/kotlin").toURL()
+                remoteLineSuffix by "#L"
+            }
+        }
+    }
+}
+
+infix fun<T> Property<T>.by(value: T) {
+    set(value)
 }
 
 publishing {
