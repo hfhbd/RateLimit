@@ -26,6 +26,7 @@ jobs:
         with:
           path: build/dokka/html
   docs:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Set environment for version
