@@ -2,6 +2,9 @@
 
 Limit the requests sent to a Ktor server with a timeout.
 
+- [Source code](https://github.com/hfhbd/RateLimit)
+- [Docs](https://ratelimit.softwork.app)
+
 ## Install
 
 This package is uploaded
@@ -49,6 +52,8 @@ install(RateLimit) {
 
 ## Storage
 
+### InMemory
+
 By default, `RateLimit` uses an in-memory map to store the requests.
 
 ```kotlin
@@ -57,12 +62,13 @@ install(RateLimit) {
 }
 ```
 
+### Persistent Storage
+
 To persist the rate limiting, you need to implement a `Storage` provider, which heavily uses the `ExperimentalTime`
 classes: `TimeSource` and `TimeStamp`. The `DatabaseStorage` provides a serializable TimeStamp to persist it in a
 database.
 
 ````kotlin
-@ExperimentalTime
 class DBStorage(private val db: Database) : DatabaseStorage {
     // ... implement the save and fetch methods depending on your database
 }
@@ -72,8 +78,9 @@ install(RateLimit) {
 }
 ````
 
-You can use the [DatabaseStorageTest](src/jvmTest/kotlin/app/softwork/ratelimit/DatabaseStorageTest.kt) as a template.
-All functions are `suspend` to support async `IO` operations.
+You can use
+the [DatabaseStorageTest](https://github.com/hfhbd/RateLimit/tree/master/src/jvmTest/kotlin/app/softwork/ratelimit/DatabaseStorageTest.kt)
+as a template. All functions are `suspend` to support async `IO` operations.
 
 ## License
 
