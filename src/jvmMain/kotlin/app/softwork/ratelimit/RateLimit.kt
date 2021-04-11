@@ -53,6 +53,11 @@ public class RateLimit(public val configuration: Configuration) {
         public var storage: Storage = InMemory()
         public var limit: Int = 1000
         public var timeout: Duration = Duration.hours(1)
+
+        public fun skip(block: (ApplicationCall) -> Boolean) {
+            skip = block
+        }
+        public var skip: (ApplicationCall) -> Boolean = { false }
     }
 
     public companion object Feature : ApplicationFeature<Application, Configuration, RateLimit> {
@@ -63,7 +68,7 @@ public class RateLimit(public val configuration: Configuration) {
 
             pipeline.intercept(ApplicationCallPipeline.Features) {
                 val host = feature.configuration.host(call)
-                if (feature.isAllowed(host)) {
+                if(feature.configuration.skip(call) || feature.isAllowed(host)) {
                     proceed()
                 } else {
                     finish()
