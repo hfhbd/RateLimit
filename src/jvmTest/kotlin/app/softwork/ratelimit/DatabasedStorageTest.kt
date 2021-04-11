@@ -47,18 +47,14 @@ class DatabasedStorageTest {
         override suspend fun set(host: String, requested: Storage.Requested) {
             newSuspendedTransaction(db = db) {
                 val entry = Lock.find { Locks.host eq host }.firstOrNull()
-                if (entry == null) {
-                    Lock.new {
+                entry?.apply {
+                    this.trials = requested.trial
+                    this.lastRequest = requested.lastRequest
+                } ?: Lock.new {
                         this.host = host
                         this.trials = requested.trial
                         this.lastRequest = requested.lastRequest
                     }
-                } else {
-                    entry.apply {
-                        this.trials = requested.trial
-                        this.lastRequest = requested.lastRequest
-                    }
-                }
             }
         }
 
@@ -90,14 +86,14 @@ class DatabasedStorageTest {
         SchemaUtils.create(Locks)
     }) { db ->
         val limit = 3
-        val coolDown = 3.seconds
+        val timeout = 3.seconds
         val rateLimit = RateLimit(RateLimit.Configuration().apply {
             this.limit = limit
-            this.timeout = coolDown
+            this.timeout = timeout
             storage = DBStorage(db = db)
         })
 
-        rateLimit.test(limit = limit, coolDown = coolDown)
+        rateLimit.test(limit = limit, timeout = timeout)
     }
 
     @OptIn(ExperimentalContracts::class)
