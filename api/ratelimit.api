@@ -1,3 +1,25 @@
+public abstract interface class app/softwork/ratelimit/DatabaseStorage : app/softwork/ratelimit/Storage {
+	public abstract fun getTimeSource ()Lapp/softwork/ratelimit/DatabaseStorage$DatabaseTimeSource;
+}
+
+public final class app/softwork/ratelimit/DatabaseStorage$DatabaseTimeSource : kotlin/time/AbstractLongTimeSource {
+	public static final field INSTANCE Lapp/softwork/ratelimit/DatabaseStorage$DatabaseTimeSource;
+	public final fun getDurationUnit ()Ljava/util/concurrent/TimeUnit;
+	public fun markNow ()Lkotlin/time/TimeMark;
+	public fun read ()J
+}
+
+public final class app/softwork/ratelimit/DatabaseStorage$DatabaseTimeSource$DatabaseTimeMark : kotlin/time/TimeMark {
+	public fun <init> (J)V
+	public fun elapsedNow-UwyO8pc ()D
+	public final fun getMark ()J
+	public fun plus-LRDsOJo (D)Lkotlin/time/TimeMark;
+}
+
+public final class app/softwork/ratelimit/DatabaseStorage$DefaultImpls {
+	public static fun getTimeSource (Lapp/softwork/ratelimit/DatabaseStorage;)Lapp/softwork/ratelimit/DatabaseStorage$DatabaseTimeSource;
+}
+
 public final class app/softwork/ratelimit/InMemory : app/softwork/ratelimit/Storage {
 	public fun <init> ()V
 	public fun getOrNull (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

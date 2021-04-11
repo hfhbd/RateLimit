@@ -9,7 +9,7 @@ class InMemoryTest {
     @Test
     fun testInMemory() = runBlocking {
         val limit = 3
-        val timeout = 3.seconds
+        val timeout = Duration.seconds(3)
         val rateLimit = RateLimit(RateLimit.Configuration().apply {
             this.limit = limit
             this.timeout = timeout
