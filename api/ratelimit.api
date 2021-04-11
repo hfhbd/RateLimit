@@ -21,6 +21,7 @@ public final class app/softwork/ratelimit/RateLimit$Configuration {
 	public final fun getAlwaysBlock ()Lkotlin/jvm/functions/Function1;
 	public final fun getHost ()Lkotlin/jvm/functions/Function1;
 	public final fun getLimit ()I
+	public final fun getSkip ()Lkotlin/jvm/functions/Function1;
 	public final fun getStorage ()Lapp/softwork/ratelimit/Storage;
 	public final fun getTimeout-UwyO8pc ()D
 	public final fun host (Lkotlin/jvm/functions/Function1;)V
@@ -28,8 +29,10 @@ public final class app/softwork/ratelimit/RateLimit$Configuration {
 	public final fun setAlwaysBlock (Lkotlin/jvm/functions/Function1;)V
 	public final fun setHost (Lkotlin/jvm/functions/Function1;)V
 	public final fun setLimit (I)V
+	public final fun setSkip (Lkotlin/jvm/functions/Function1;)V
 	public final fun setStorage (Lapp/softwork/ratelimit/Storage;)V
 	public final fun setTimeout-LRDsOJo (D)V
+	public final fun skip (Lkotlin/jvm/functions/Function1;)V
 }
 
 public final class app/softwork/ratelimit/RateLimit$Feature : io/ktor/application/ApplicationFeature {
