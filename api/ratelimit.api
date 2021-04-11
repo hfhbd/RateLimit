@@ -15,12 +15,15 @@ public final class app/softwork/ratelimit/RateLimit {
 
 public final class app/softwork/ratelimit/RateLimit$Configuration {
 	public fun <init> ()V
+	public final fun alwaysAllow (Lkotlin/jvm/functions/Function1;)V
+	public final fun alwaysBlock (Lkotlin/jvm/functions/Function1;)V
 	public final fun getAlwaysAllow ()Lkotlin/jvm/functions/Function1;
 	public final fun getAlwaysBlock ()Lkotlin/jvm/functions/Function1;
 	public final fun getHost ()Lkotlin/jvm/functions/Function1;
 	public final fun getLimit ()I
 	public final fun getStorage ()Lapp/softwork/ratelimit/Storage;
 	public final fun getTimeout-UwyO8pc ()D
+	public final fun host (Lkotlin/jvm/functions/Function1;)V
 	public final fun setAlwaysAllow (Lkotlin/jvm/functions/Function1;)V
 	public final fun setAlwaysBlock (Lkotlin/jvm/functions/Function1;)V
 	public final fun setHost (Lkotlin/jvm/functions/Function1;)V
