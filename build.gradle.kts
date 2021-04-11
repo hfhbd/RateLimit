@@ -51,7 +51,7 @@ kotlin {
     }
 }
 
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHtml") {
     dokkaSourceSets {
         configureEach {
             moduleName by "RateLimit"
