@@ -1,12 +1,11 @@
-# RateLimit
+# Module RateLimit
 
 Limit the requests sent to a Ktor server with a timeout.
 
 ## Install
 
-This package is uploaded to GitHub Packages. See
-the [docs](https://docs.github.com/en/packages/guides/configuring-gradle-for-use-with-github-packages) to install this
-feature.
+This package is uploaded
+to [GitHub Packages](https://docs.github.com/en/packages/guides/configuring-gradle-for-use-with-github-packages).
 
 ````kotlin
 repositories {
@@ -29,7 +28,7 @@ dependencies {
 Simple install it in your application module.
 
 ```kotlin
-install(RateLimit) // use default configuration
+install(RateLimit) // use the default configuration
 
 install(RateLimit) {
     limit = 10
@@ -50,7 +49,7 @@ install(RateLimit) {
 
 ## Storage
 
-By default, `RateLimit` uses a in-memory map to store the requests data.
+By default, `RateLimit` uses an in-memory map to store the requests.
 
 ```kotlin
 install(RateLimit) {
@@ -59,10 +58,28 @@ install(RateLimit) {
 ```
 
 To persist the rate limiting, you need to implement a `Storage` provider, which heavily uses the `ExperimentalTime`
-classes: `TimeSource` and `TimeStamp`. You can use
-the [databaseTest](src/jvmTest/kotlin/app/softwork/ratelimit/DatabasedStorageTest.kt) as a template. All functions
-are `suspend` to support async `IO` operations.
+classes: `TimeSource` and `TimeStamp`. The `DatabaseStorage` provides a serializable TimeStamp to persist it in a
+database.
+
+````kotlin
+@ExperimentalTime
+class DBStorage(private val db: Database) : DatabaseStorage {
+    // ... implement the save and fetch methods depending on your database
+}
+
+install(RateLimit) {
+    storage = DBStorage(db = db)
+}
+````
+
+You can use the [DatabaseStorageTest](src/jvmTest/kotlin/app/softwork/ratelimit/DatabaseStorageTest.kt) as a template.
+All functions are `suspend` to support async `IO` operations.
 
 ## License
 
 Apache 2
+
+# Package app.softwork.ratelimit
+
+The package contains the feature `RateLimit`, the `Storage`, an `InMemory` implementation and the `DatabaseStorage`
+interface. 

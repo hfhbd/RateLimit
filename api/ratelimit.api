@@ -13,7 +13,6 @@ public final class app/softwork/ratelimit/DatabaseStorage$DatabaseTimeSource$Dat
 	public fun <init> (J)V
 	public fun elapsedNow-UwyO8pc ()D
 	public final fun getMark ()J
-	public fun plus-LRDsOJo (D)Lkotlin/time/TimeMark;
 }
 
 public final class app/softwork/ratelimit/DatabaseStorage$DefaultImpls {
@@ -72,11 +71,11 @@ public final class app/softwork/ratelimit/RateLimit$RequestResult$Allow : app/so
 	public static final field INSTANCE Lapp/softwork/ratelimit/RateLimit$RequestResult$Allow;
 }
 
-public final class app/softwork/ratelimit/RateLimit$RequestResult$Forbid : app/softwork/ratelimit/RateLimit$RequestResult {
+public final class app/softwork/ratelimit/RateLimit$RequestResult$Block : app/softwork/ratelimit/RateLimit$RequestResult {
 	public synthetic fun <init> (DLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-UwyO8pc ()D
-	public final fun copy-LRDsOJo (D)Lapp/softwork/ratelimit/RateLimit$RequestResult$Forbid;
-	public static synthetic fun copy-LRDsOJo$default (Lapp/softwork/ratelimit/RateLimit$RequestResult$Forbid;DILjava/lang/Object;)Lapp/softwork/ratelimit/RateLimit$RequestResult$Forbid;
+	public final fun copy-LRDsOJo (D)Lapp/softwork/ratelimit/RateLimit$RequestResult$Block;
+	public static synthetic fun copy-LRDsOJo$default (Lapp/softwork/ratelimit/RateLimit$RequestResult$Block;DILjava/lang/Object;)Lapp/softwork/ratelimit/RateLimit$RequestResult$Block;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getRetryAfter-UwyO8pc ()D
 	public fun hashCode ()I
