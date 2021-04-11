@@ -63,6 +63,9 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
                 remoteUrl by uri("https://github.com/hfhbd/RateLimit/tree/master/src/$sourceSetName/kotlin").toURL()
                 remoteLineSuffix by "#L"
             }
+            externalDocumentationLink {
+                url by uri("https://ratelimit.softwork.app/").toURL()
+            }
         }
     }
 }
