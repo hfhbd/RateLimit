@@ -6,7 +6,6 @@ plugins {
 }
 
 group = "app.softwork"
-version = "0.0.6"
 
 repositories {
     mavenCentral()
