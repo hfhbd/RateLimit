@@ -17,14 +17,17 @@ jobs:
           java-version: 11
       - name: Build with Gradle
         run: ./gradlew build
-      - name: Publish
-        run: ./gradlew publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate Docs
+        run: ./gradlew dokkaHtml
       - name: Upload Docs
         uses: actions/upload-artifact@v2
         with:
           path: build/dokka/html
+      - name: Publish
+        run: ./gradlew publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   docs:
     needs: build
     runs-on: ubuntu-latest
