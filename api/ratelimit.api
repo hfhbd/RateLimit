@@ -11,7 +11,7 @@ public final class app/softwork/ratelimit/DatabaseStorage$DatabaseTimeSource : k
 
 public final class app/softwork/ratelimit/DatabaseStorage$DatabaseTimeSource$DatabaseTimeMark : kotlin/time/TimeMark {
 	public fun <init> (J)V
-	public fun elapsedNow-UwyO8pc ()D
+	public fun elapsedNow-UwyO8pc ()J
 	public final fun getMark ()J
 }
 
@@ -45,7 +45,7 @@ public final class app/softwork/ratelimit/RateLimit$Configuration {
 	public final fun getSendRetryAfterHeader ()Z
 	public final fun getSkip ()Lkotlin/jvm/functions/Function1;
 	public final fun getStorage ()Lapp/softwork/ratelimit/Storage;
-	public final fun getTimeout-UwyO8pc ()D
+	public final fun getTimeout-UwyO8pc ()J
 	public final fun host (Lkotlin/jvm/functions/Function1;)V
 	public final fun setAlwaysAllow (Lkotlin/jvm/functions/Function1;)V
 	public final fun setAlwaysBlock (Lkotlin/jvm/functions/Function1;)V
@@ -54,7 +54,7 @@ public final class app/softwork/ratelimit/RateLimit$Configuration {
 	public final fun setSendRetryAfterHeader (Z)V
 	public final fun setSkip (Lkotlin/jvm/functions/Function1;)V
 	public final fun setStorage (Lapp/softwork/ratelimit/Storage;)V
-	public final fun setTimeout-LRDsOJo (D)V
+	public final fun setTimeout-LRDsOJo (J)V
 	public final fun skip (Lkotlin/jvm/functions/Function1;)V
 }
 
@@ -72,12 +72,12 @@ public final class app/softwork/ratelimit/RateLimit$RequestResult$Allow : app/so
 }
 
 public final class app/softwork/ratelimit/RateLimit$RequestResult$Block : app/softwork/ratelimit/RateLimit$RequestResult {
-	public synthetic fun <init> (DLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1-UwyO8pc ()D
-	public final fun copy-LRDsOJo (D)Lapp/softwork/ratelimit/RateLimit$RequestResult$Block;
-	public static synthetic fun copy-LRDsOJo$default (Lapp/softwork/ratelimit/RateLimit$RequestResult$Block;DILjava/lang/Object;)Lapp/softwork/ratelimit/RateLimit$RequestResult$Block;
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-UwyO8pc ()J
+	public final fun copy-LRDsOJo (J)Lapp/softwork/ratelimit/RateLimit$RequestResult$Block;
+	public static synthetic fun copy-LRDsOJo$default (Lapp/softwork/ratelimit/RateLimit$RequestResult$Block;JILjava/lang/Object;)Lapp/softwork/ratelimit/RateLimit$RequestResult$Block;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getRetryAfter-UwyO8pc ()D
+	public final fun getRetryAfter-UwyO8pc ()J
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
