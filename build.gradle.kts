@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.5.0-M2"
+    kotlin("multiplatform") version "1.5.0-RC"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.5.0"
     id("org.jetbrains.dokka") version "1.4.30"
     `maven-publish`
