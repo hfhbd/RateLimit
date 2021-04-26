@@ -9,7 +9,6 @@ group = "app.softwork"
 
 repositories {
     mavenCentral()
-    jcenter() // dokka
 }
 
 kotlin {
