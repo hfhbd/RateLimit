@@ -18,7 +18,7 @@ kotlin {
 
     sourceSets {
         // Apache 2, https://github.com/ktorio/ktor/releases/latest
-        val ktorVersion = "1.5.4"
+        val ktorVersion = "1.6.0"
 
         commonTest {
             dependencies {
