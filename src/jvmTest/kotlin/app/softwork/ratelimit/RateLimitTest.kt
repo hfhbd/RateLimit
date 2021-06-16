@@ -1,6 +1,7 @@
 package app.softwork.ratelimit
 
-import app.softwork.ratelimit.RateLimit.RequestResult.*
+import app.softwork.ratelimit.RateLimit.RequestResult.Allow
+import app.softwork.ratelimit.RateLimit.RequestResult.Block
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.http.HttpHeaders.RetryAfter
@@ -55,7 +56,11 @@ class RateLimitTest {
         install(RateLimit) {
             limit = 3
             skip { call ->
-                call.request.local.uri != "/login"
+                if (call.request.local.uri == "/login") {
+                    RateLimit.SkipResult.ExecuteRateLimit
+                } else {
+                    RateLimit.SkipResult.SkipRateLimit
+                }
             }
         }
         routing {

@@ -32,6 +32,14 @@ public class RateLimit(public val configuration: Configuration) {
     }
 
     /**
+     * Result of [Configuration.skip] to skip the rate limit for this host on [SkipRateLimit] or
+     * execute [RateLimit.isAllowed] on [ExecuteRateLimit]
+     */
+    public enum class SkipResult {
+        SkipRateLimit, ExecuteRateLimit
+    }
+
+    /**
      * Check using the [configuration] if a [host] is allowed to request the requested resource.
      */
     public suspend fun isAllowed(host: String): RequestResult {
@@ -73,11 +81,7 @@ public class RateLimit(public val configuration: Configuration) {
             host = block
         }
 
-        /**
-         * Handler to return the unique host information from a [ApplicationCall].
-         * By default, the [RequestConnectionPoint.remoteHost] is used.
-         */
-        public var host: (ApplicationCall) -> String = { it.request.local.remoteHost }
+        internal var host: (ApplicationCall) -> String = { it.request.local.remoteHost }
 
         /**
          * Override the handler to always allow a [host]. Returns true, if the [host] should be allowed.
@@ -87,11 +91,7 @@ public class RateLimit(public val configuration: Configuration) {
             alwaysAllow = block
         }
 
-        /**
-         * Handler to always allow a [host]. Returns true, if the [host] should be allowed.
-         * Default value is false.
-         */
-        public var alwaysAllow: (String) -> Boolean = { false }
+        internal var alwaysAllow: (String) -> Boolean = { false }
 
         /**
          * Override the handler to always block a [host]. Returns true, if the [host] should be blocked.
@@ -101,11 +101,7 @@ public class RateLimit(public val configuration: Configuration) {
             alwaysBlock = block
         }
 
-        /**
-         * Handler to always block a [host]. Returns true, if the [host] should be blocked.
-         * Default value is false.
-         */
-        public var alwaysBlock: (String) -> Boolean = { false }
+        internal var alwaysBlock: (String) -> Boolean = { false }
 
         /**
          * The storage provider to persist the request information.
@@ -126,18 +122,14 @@ public class RateLimit(public val configuration: Configuration) {
         public var timeout: Duration = Duration.hours(1)
 
         /**
-         * Overrides the handler to skip a [call] from the rate limit check. Returns true, if the [call] should be skipped.
-         * Default value is false, every [call] will be checked.
+         * Overrides the handler to skip a [call] from the rate limit check. Return [SkipRateLimit], if the [call] should be skipped.
+         * Default value is [SkipResult.ExecuteRateLimit], every [call] will be checked.
          */
-        public fun skip(block: (ApplicationCall) -> Boolean) {
+        public fun skip(block: (ApplicationCall) -> SkipResult) {
             skip = block
         }
 
-        /**
-         * Handler to skip a [call] from the rate limit check. Returns true, if the [call] should be skipped.
-         * Default value is false, every [call] will be checked.
-         */
-        public var skip: (ApplicationCall) -> Boolean = { false }
+        internal var skip: (ApplicationCall) -> SkipResult = { SkipResult.ExecuteRateLimit }
 
         /**
          * Add the RetryAgain header to the response, if the [host] is blocked by the rate limit check or by the [alwaysBlock] function.
@@ -161,7 +153,7 @@ public class RateLimit(public val configuration: Configuration) {
 
         private suspend fun PipelineContext<Unit, ApplicationCall>.intercept(feature: RateLimit) {
             val host = feature.configuration.host(call)
-            if (feature.configuration.skip(call)) {
+            if (feature.configuration.skip(call) == SkipResult.SkipRateLimit) {
                 proceed()
                 return
             }
