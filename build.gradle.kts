@@ -58,7 +58,7 @@ tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHtml") {
             val sourceSetName = name
             sourceLink {
                 localDirectory by file("src/$sourceSetName/kotlin")
-                remoteUrl by uri("https://github.com/hfhbd/RateLimit/tree/master/src/$sourceSetName/kotlin").toURL()
+                remoteUrl by uri("https://github.com/hfhbd/RateLimit/tree/main/src/$sourceSetName/kotlin").toURL()
                 remoteLineSuffix by "#L"
             }
             externalDocumentationLink {
