@@ -38,21 +38,13 @@ public final class app/softwork/ratelimit/RateLimit$Configuration {
 	public fun <init> ()V
 	public final fun alwaysAllow (Lkotlin/jvm/functions/Function1;)V
 	public final fun alwaysBlock (Lkotlin/jvm/functions/Function1;)V
-	public final fun getAlwaysAllow ()Lkotlin/jvm/functions/Function1;
-	public final fun getAlwaysBlock ()Lkotlin/jvm/functions/Function1;
-	public final fun getHost ()Lkotlin/jvm/functions/Function1;
 	public final fun getLimit ()I
 	public final fun getSendRetryAfterHeader ()Z
-	public final fun getSkip ()Lkotlin/jvm/functions/Function1;
 	public final fun getStorage ()Lapp/softwork/ratelimit/Storage;
 	public final fun getTimeout-UwyO8pc ()J
 	public final fun host (Lkotlin/jvm/functions/Function1;)V
-	public final fun setAlwaysAllow (Lkotlin/jvm/functions/Function1;)V
-	public final fun setAlwaysBlock (Lkotlin/jvm/functions/Function1;)V
-	public final fun setHost (Lkotlin/jvm/functions/Function1;)V
 	public final fun setLimit (I)V
 	public final fun setSendRetryAfterHeader (Z)V
-	public final fun setSkip (Lkotlin/jvm/functions/Function1;)V
 	public final fun setStorage (Lapp/softwork/ratelimit/Storage;)V
 	public final fun setTimeout-LRDsOJo (J)V
 	public final fun skip (Lkotlin/jvm/functions/Function1;)V
@@ -80,6 +72,13 @@ public final class app/softwork/ratelimit/RateLimit$RequestResult$Block : app/so
 	public final fun getRetryAfter-UwyO8pc ()J
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/softwork/ratelimit/RateLimit$SkipResult : java/lang/Enum {
+	public static final field ExecuteRateLimit Lapp/softwork/ratelimit/RateLimit$SkipResult;
+	public static final field SkipRateLimit Lapp/softwork/ratelimit/RateLimit$SkipResult;
+	public static fun valueOf (Ljava/lang/String;)Lapp/softwork/ratelimit/RateLimit$SkipResult;
+	public static fun values ()[Lapp/softwork/ratelimit/RateLimit$SkipResult;
 }
 
 public abstract interface class app/softwork/ratelimit/Storage {
