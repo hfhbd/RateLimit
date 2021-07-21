@@ -18,6 +18,7 @@ repositories {
 kotlin {
     explicitApi()
 }
+
 dependencies {
     // Apache 2, https://github.com/ktorio/ktor/releases/latest
     val ktorVersion = "1.6.1"
@@ -38,7 +39,7 @@ dependencies {
     testRuntimeOnly("com.h2database:h2:1.4.200")
 }
 
-tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHtml") {
+tasks.dokkaHtml {
     dokkaSourceSets {
         configureEach {
             moduleName by "RateLimit"
@@ -61,7 +62,26 @@ infix fun <T> Property<T>.by(value: T) {
     set(value)
 }
 
+nexusPublishing {
+    repositories {
+        sonatype {
+            username.set(System.getProperty("sonartype.apiKey") ?: System.getenv("SONARTYPE_APIKEY"))
+            password.set(System.getProperty("sonartype.apiToken") ?: System.getenv("SONARTYPE_APITOKEN"))
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
+    publications.create<MavenPublication>("mavenJava") {
+        from(components["java"])
+    }
     publications.all {
         if (this is MavenPublication) {
             pom {
@@ -99,16 +119,5 @@ publishing {
         val signingPassword = System.getProperty("signing.password") ?: System.getenv("SIGNING_PASSWORD")
         useInMemoryPgpKeys(key, signingPassword)
         sign(publishing.publications)
-    }
-}
-
-nexusPublishing {
-    repositories {
-        sonatype {
-            username.set(System.getProperty("sonartype.apiKey") ?: System.getenv("SONARTYPE_APIKEY"))
-            password.set(System.getProperty("sonartype.apiToken") ?: System.getenv("SONARTYPE_APITOKEN"))
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-        }
     }
 }
