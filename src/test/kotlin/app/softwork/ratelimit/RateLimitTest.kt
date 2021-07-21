@@ -122,7 +122,7 @@ suspend fun RateLimit.test(limit: Int, timeout: Duration) {
     repeat(limit) {
         assertTrue(isAllowed("a") is Block)
     }
-    delay(timeMillis = timeout.toLongMilliseconds())
+    delay(timeMillis = timeout.inWholeMilliseconds)
     assertEquals(Allow, isAllowed("a"))
 
     repeat(limit) {
@@ -136,7 +136,7 @@ suspend fun RateLimit.test(limit: Int, timeout: Duration) {
     }
 
     repeat(limit * 2) {
-        delay(timeMillis = timeout.toLongMilliseconds())
+        delay(timeMillis = timeout.inWholeMilliseconds)
         assertEquals(Allow, isAllowed("a"))
     }
 }
