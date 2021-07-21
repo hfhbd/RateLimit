@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.6.0"
     id("org.jetbrains.dokka") version "1.5.0"
     `maven-publish`
+    signing
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
 group = "app.softwork"
@@ -73,14 +75,53 @@ infix fun<T> Property<T>.by(value: T) {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/hfhbd/ratelimit")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+    publications.all {
+        if (this is MavenPublication) {
+            pom {
+                name.set("app.softwork RateLimit Library")
+                description.set("A ratelimit plugin for Ktor")
+                url.set("https://github.com/hfhbd/RateLimit")
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("hfhbd")
+                        name.set("Philip Wedemann")
+                        email.set("mybztg+mavencentral@icloud.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git://github.com/hfhbd/RateLimit.git")
+                    developerConnection.set("scm:git://github.com/hfhbd/RateLimit.git")
+                    url.set("https://github.com/hfhbd/RateLimit")
+                }
             }
+        }
+    }
+}
+
+(System.getProperty("signing.privateKey") ?: System.getenv("SIGNING_PRIVATE_KEY"))?.let {
+        String(java.util.Base64.getDecoder().decode(it)).trim()
+}?.let { key ->
+    println("found key, config signing")
+    signing {
+        val signingPassword = System.getProperty("signing.password") ?: System.getenv("SIGNING_PASSWORD")
+        useInMemoryPgpKeys(key, signingPassword)
+        sign(publishing.publications)
+    }
+}    
+    
+nexusPublishing {
+    repositories {
+        sonatype {
+            username.set(System.getProperty("sonartype.apiKey") ?: System.getenv("SONARTYPE_APIKEY"))
+            password.set(System.getProperty("sonartype.apiToken") ?: System.getenv("SONARTYPE_APITOKEN"))
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
         }
     }
 }
