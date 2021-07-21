@@ -28,7 +28,10 @@ jobs:
       - name: Publish
         run: ./gradlew -Pversion=$version publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SIGNING_PRIVATE_KEY: ${{ secrets.SIGNING_PRIVATE_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+          SONARTYPE_APIKEY: ${{ secrets.SONARTYPE_APIKEY }}
+          SONARTYPE_APITOKEN: ${{ secrets.SONARTYPE_APITOKEN }}
 
   docs:
     needs: build
