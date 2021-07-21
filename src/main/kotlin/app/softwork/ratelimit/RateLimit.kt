@@ -164,7 +164,7 @@ public class RateLimit(public val configuration: Configuration) {
                 is Block -> {
                     finish()
                     if (feature.configuration.sendRetryAfterHeader) {
-                        call.response.header(HttpHeaders.RetryAfter, isAllowed.retryAfter.inSeconds.toLong())
+                        call.response.header(HttpHeaders.RetryAfter, isAllowed.retryAfter.inWholeSeconds)
                     }
                     call.respond(HttpStatusCode.TooManyRequests)
                 }
