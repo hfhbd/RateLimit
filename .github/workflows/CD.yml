@@ -26,7 +26,7 @@ jobs:
         with:
           path: build/dokka/html
       - name: Publish
-        run: ./gradlew -Pversion=$version -Dorg.gradle.parallel=false publishToSonatype closeAndReleaseStagingRepository
+        run: ./gradlew -Pversion=$version -Dorg.gradle.parallel=false publish closeAndReleaseStagingRepository
         env:
           SIGNING_PRIVATE_KEY: ${{ secrets.SIGNING_PRIVATE_KEY }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
