@@ -1,3 +1,5 @@
+import java.util.Base64
+
 plugins {
     kotlin("multiplatform") version "1.5.21"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.6.0"
@@ -78,26 +80,26 @@ publishing {
     publications.all {
         if (this is MavenPublication) {
             pom {
-                name.set("app.softwork RateLimit Library")
-                description.set("A ratelimit plugin for Ktor")
-                url.set("https://github.com/hfhbd/RateLimit")
+                name by "app.softwork RateLimit Library"
+                description by "A ratelimit plugin for Ktor"
+                url by "https://github.com/hfhbd/RateLimit"
                 licenses {
                     license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                        name by "The Apache License, Version 2.0"
+                        url by "https://www.apache.org/licenses/LICENSE-2.0.txt"
                     }
                 }
                 developers {
                     developer {
-                        id.set("hfhbd")
-                        name.set("Philip Wedemann")
-                        email.set("mybztg+mavencentral@icloud.com")
+                        id by "hfhbd"
+                        name by "Philip Wedemann"
+                        email by "mybztg+mavencentral@icloud.com"
                     }
                 }
                 scm {
-                    connection.set("scm:git://github.com/hfhbd/RateLimit.git")
-                    developerConnection.set("scm:git://github.com/hfhbd/RateLimit.git")
-                    url.set("https://github.com/hfhbd/RateLimit")
+                    connection by "scm:git://github.com/hfhbd/RateLimit.git"
+                    developerConnection by "scm:git://github.com/hfhbd/RateLimit.git"
+                    url by "https://github.com/hfhbd/RateLimit"
                 }
             }
         }
@@ -105,7 +107,7 @@ publishing {
 }
 
 (System.getProperty("signing.privateKey") ?: System.getenv("SIGNING_PRIVATE_KEY"))?.let {
-        String(java.util.Base64.getDecoder().decode(it)).trim()
+        String(Base64.getDecoder().decode(it)).trim()
 }?.let { key ->
     println("found key, config signing")
     signing {
