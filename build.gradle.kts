@@ -1,7 +1,7 @@
-import java.util.Base64
+import java.util.*
 
 plugins {
-    kotlin("multiplatform") version "1.5.21"
+    kotlin("jvm") version "1.5.21"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.6.0"
     id("org.jetbrains.dokka") version "1.5.0"
     `maven-publish`
@@ -17,40 +17,25 @@ repositories {
 
 kotlin {
     explicitApi()
+}
+dependencies {
+    // Apache 2, https://github.com/ktorio/ktor/releases/latest
+    val ktorVersion = "1.6.1"
 
-    jvm()
+    api("io.ktor:ktor-server-core:$ktorVersion")
 
-    sourceSets {
-        // Apache 2, https://github.com/ktorio/ktor/releases/latest
-        val ktorVersion = "1.6.1"
+    testImplementation(kotlin("test"))
+    // Apache 2, https://github.com/JetBrains/Exposed/releases/latest
+    val exposedVersion = "0.32.1"
+    testImplementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    testImplementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    testImplementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    testImplementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
 
-        commonTest {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
 
-        val jvmMain by getting {
-            dependencies {
-                api("io.ktor:ktor-server-core:$ktorVersion")
-            }
-        }
-        val jvmTest by getting {
-            dependencies {
-                // Apache 2, https://github.com/JetBrains/Exposed/releases/latest
-                val exposedVersion = "0.32.1"
-                implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
-                implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
-                implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-                implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
-
-                implementation("io.ktor:ktor-server-test-host:$ktorVersion")
-
-                // EPL 1.0, https://github.com/h2database/h2database/releases/latest
-                runtimeOnly("com.h2database:h2:1.4.200")
-            }
-        }
-    }
+    // EPL 1.0, https://github.com/h2database/h2database/releases/latest
+    testRuntimeOnly("com.h2database:h2:1.4.200")
 }
 
 tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHtml") {
@@ -72,7 +57,7 @@ tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHtml") {
     }
 }
 
-infix fun<T> Property<T>.by(value: T) {
+infix fun <T> Property<T>.by(value: T) {
     set(value)
 }
 
@@ -107,7 +92,7 @@ publishing {
 }
 
 (System.getProperty("signing.privateKey") ?: System.getenv("SIGNING_PRIVATE_KEY"))?.let {
-        String(Base64.getDecoder().decode(it)).trim()
+    String(Base64.getDecoder().decode(it)).trim()
 }?.let { key ->
     println("found key, config signing")
     signing {
@@ -115,8 +100,8 @@ publishing {
         useInMemoryPgpKeys(key, signingPassword)
         sign(publishing.publications)
     }
-}    
-    
+}
+
 nexusPublishing {
     repositories {
         sonatype {
