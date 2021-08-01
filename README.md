@@ -30,15 +30,24 @@ install(RateLimit) {
     limit = 10
     timeout = 1.hours
 
+    host = { call ->
+        call.request.local.host
+    }
+    
     alwaysAllow { host ->
         host.startsWith("foo")
     }
+    
     alwaysBlock { host ->
         host.endsWith("bar")
     }
-
-    host = { call ->
-        call.request.local.host
+    
+    skip { call ->
+        if (call.request.local.uri == "/login") {
+            RateLimit.SkipResult.ExecuteRateLimit
+        } else {
+            RateLimit.SkipResult.SkipRateLimit
+        }
     }
 }
 ```

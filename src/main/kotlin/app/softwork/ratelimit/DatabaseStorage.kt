@@ -4,7 +4,7 @@ import app.softwork.ratelimit.DatabaseStorage.DatabaseTimeSource.durationUnit
 import kotlin.time.*
 
 /**
- * This [Storage] uses a own [TimeSource] implementation to get the actual [TimeMark] as a [Long] to persist/restore it in/from a database.
+ * This [Storage] uses an own [TimeSource] implementation to get the actual [TimeMark] as a [Long] to persist/restore it in/from a database.
  */
 @ExperimentalTime
 public interface DatabaseStorage : Storage {

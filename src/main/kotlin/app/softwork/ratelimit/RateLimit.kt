@@ -26,7 +26,7 @@ public class RateLimit(public val configuration: Configuration) {
 
         /**
          * The request was blocked.
-         * @param retryAfter if [Configuration.sendRetryAfterHeader] is true, this duration is send back as in the header `RetryAfter`.
+         * @param retryAfter if [Configuration.sendRetryAfterHeader] is true, this duration is sent back as in the header `RetryAfter`.
          */
         public data class Block(public val retryAfter: Duration) : RequestResult()
     }
@@ -105,7 +105,7 @@ public class RateLimit(public val configuration: Configuration) {
 
         /**
          * The storage provider to persist the request information.
-         * By default an [InMemory] implementation is used.
+         * By default, an [InMemory] implementation is used.
          */
         public var storage: Storage = InMemory()
 
@@ -122,7 +122,7 @@ public class RateLimit(public val configuration: Configuration) {
         public var timeout: Duration = Duration.hours(1)
 
         /**
-         * Overrides the handler to skip a [call] from the rate limit check. Return [SkipRateLimit], if the [call] should be skipped.
+         * Overrides the handler to skip a [call] from the rate limit check. Return [SkipResult.SkipRateLimit], if the [call] should be skipped.
          * Default value is [SkipResult.ExecuteRateLimit], every [call] will be checked.
          */
         public fun skip(block: (ApplicationCall) -> SkipResult) {
@@ -132,7 +132,7 @@ public class RateLimit(public val configuration: Configuration) {
         internal var skip: (ApplicationCall) -> SkipResult = { SkipResult.ExecuteRateLimit }
 
         /**
-         * Add the RetryAgain header to the response, if the [host] is blocked by the rate limit check or by the [alwaysBlock] function.
+         * Add the [HttpHeaders.RetryAfter] header to the response, if the [host] is blocked by the rate limit check or by the [alwaysBlock] function.
          * Default value is true.
          */
         public var sendRetryAfterHeader: Boolean = true
