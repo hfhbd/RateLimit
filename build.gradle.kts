@@ -2,7 +2,7 @@ import java.util.*
 
 plugins {
     kotlin("jvm") version "1.5.30"
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.7.0"
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.7.1"
     id("org.jetbrains.dokka") version "1.5.0"
     `maven-publish`
     signing
