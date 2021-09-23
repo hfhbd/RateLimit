@@ -27,11 +27,9 @@ dependencies {
 
     testImplementation(kotlin("test"))
     // Apache 2, https://github.com/JetBrains/Exposed/releases/latest
-    val exposedVersion = "0.34.2"
-    testImplementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    val exposedVersion = "0.35.1"
     testImplementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     testImplementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-    testImplementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
 
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
 
@@ -83,29 +81,28 @@ publishing {
         from(components["java"])
     }
     publications.all {
-        if (this is MavenPublication) {
-            pom {
-                name by "app.softwork RateLimit Library"
-                description by "A ratelimit plugin for Ktor"
+        this as MavenPublication
+        pom {
+            name by "app.softwork RateLimit Library"
+            description by "A ratelimit plugin for Ktor"
+            url by "https://github.com/hfhbd/RateLimit"
+            licenses {
+                license {
+                    name by "The Apache License, Version 2.0"
+                    url by "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                }
+            }
+            developers {
+                developer {
+                    id by "hfhbd"
+                    name by "Philip Wedemann"
+                    email by "mybztg+mavencentral@icloud.com"
+                }
+            }
+            scm {
+                connection by "scm:git://github.com/hfhbd/RateLimit.git"
+                developerConnection by "scm:git://github.com/hfhbd/RateLimit.git"
                 url by "https://github.com/hfhbd/RateLimit"
-                licenses {
-                    license {
-                        name by "The Apache License, Version 2.0"
-                        url by "https://www.apache.org/licenses/LICENSE-2.0.txt"
-                    }
-                }
-                developers {
-                    developer {
-                        id by "hfhbd"
-                        name by "Philip Wedemann"
-                        email by "mybztg+mavencentral@icloud.com"
-                    }
-                }
-                scm {
-                    connection by "scm:git://github.com/hfhbd/RateLimit.git"
-                    developerConnection by "scm:git://github.com/hfhbd/RateLimit.git"
-                    url by "https://github.com/hfhbd/RateLimit"
-                }
             }
         }
     }
