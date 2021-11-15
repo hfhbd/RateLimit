@@ -7,6 +7,7 @@ import io.ktor.response.*
 import io.ktor.util.*
 import io.ktor.util.pipeline.*
 import kotlin.time.*
+import kotlin.time.Duration.Companion.hours
 
 /**
  * Rate limit feature to block a request if a host has requested the server too often.
@@ -119,7 +120,7 @@ public class RateLimit(public val configuration: Configuration) {
          * The duration until a blocked request will be allowed.
          * Default value is 1 hour.
          */
-        public var timeout: Duration = Duration.hours(1)
+        public var timeout: Duration = 1.hours
 
         /**
          * Overrides the handler to skip a [call] from the rate limit check. Return [SkipResult.SkipRateLimit], if the [call] should be skipped.

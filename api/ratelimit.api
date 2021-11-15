@@ -4,7 +4,7 @@ public abstract interface class app/softwork/ratelimit/DatabaseStorage : app/sof
 
 public final class app/softwork/ratelimit/DatabaseStorage$DatabaseTimeSource : kotlin/time/AbstractLongTimeSource {
 	public static final field INSTANCE Lapp/softwork/ratelimit/DatabaseStorage$DatabaseTimeSource;
-	public final fun getDurationUnit ()Ljava/util/concurrent/TimeUnit;
+	public final fun getDurationUnit ()Lkotlin/time/DurationUnit;
 	public fun markNow ()Lkotlin/time/TimeMark;
 	public fun read ()J
 }
