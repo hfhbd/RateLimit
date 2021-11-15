@@ -9,6 +9,7 @@ import org.jetbrains.exposed.sql.transactions.*
 import org.jetbrains.exposed.sql.transactions.experimental.*
 import kotlin.test.*
 import kotlin.time.*
+import kotlin.time.Duration.Companion.seconds
 
 @ExperimentalTime
 class DatabaseStorageTest {
@@ -68,7 +69,7 @@ class DatabaseStorageTest {
         SchemaUtils.create(Locks)
     }) { db ->
         val limit = 3
-        val timeout = Duration.seconds(3)
+        val timeout = 3.seconds
         val rateLimit = RateLimit(RateLimit.Configuration().apply {
             this.limit = limit
             this.timeout = timeout
