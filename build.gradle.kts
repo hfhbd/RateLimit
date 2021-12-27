@@ -34,7 +34,7 @@ dependencies {
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
 
     // EPL 1.0, https://github.com/h2database/h2database/releases/latest
-    testRuntimeOnly("com.h2database:h2:1.4.200")
+    testRuntimeOnly("com.h2database:h2:2.0.204")
 }
 
 tasks.dokkaHtml {
