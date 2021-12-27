@@ -3,7 +3,7 @@ import java.util.*
 plugins {
     kotlin("jvm") version "1.6.10"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.8.0"
-    id("org.jetbrains.dokka") version "1.6.0"
+    id("org.jetbrains.dokka") version "1.6.10"
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
