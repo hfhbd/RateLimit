@@ -2,27 +2,31 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>RequestResult</title>
-<link href="../../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../../scripts/main.js" async="async"></script>  </head>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><link href="../../../../styles/prism.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script><script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>  </head>
   <body>
+    <div class="navigation-wrapper" id="navigation-wrapper">
+      <div id="leftToggler"><span class="icon-toggler"></span></div>
+      <div class="library-name"><a href="../../../../index.html">RateLimit</a></div>
+      <div></div>
+      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+      </div>
+    </div>
     <div id="container">
-      <div id="leftColumn"><a href="../../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
+      <div id="leftColumn">
         <div id="sideMenu"></div>
       </div>
       <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="RateLimit::app.softwork.ratelimit/RateLimit.RequestResult///PointingToDeclaration//769193423">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../../index.html">RateLimit</a>/<a href="../../index.html">app.softwork.ratelimit</a>/<a href="../index.html">RateLimit</a>/<a href="index.html">RequestResult</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
+        <div class="main-content" id="content" pageIds="RateLimit::app.softwork.ratelimit/RateLimit.RequestResult///PointingToDeclaration//769193423">
+          <div class="breadcrumbs"><a href="../../../../index.html">RateLimit</a>/<a href="../../index.html">app.softwork.ratelimit</a>/<a href="../index.html">RateLimit</a>/<a href="index.html">RequestResult</a></div>
           <div class="cover ">
-            <h1 class="cover"><span>Request</span><wbr></wbr><span>Result</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">sealed class <a href="index.html">RequestResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The result if a call should be allowed or blocked.</p></div></div>
+            <h1 class="cover"><span>Request</span><wbr></wbr><span><span>Result</span></span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="index.html">RequestResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The result if a call should be allowed or blocked.</p></div></div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Sources">Sources</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
@@ -31,52 +35,52 @@
               <div class="table" data-togglable="Types"><a data-name="-679983657%2FClasslikes%2F769193423" anchor-label="Allow" id="-679983657%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-allow/index.html">Allow</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-679983657%2FClasslikes%2F769193423"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="-allow/index.html"><span><span>Allow</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-679983657%2FClasslikes%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">object <a href="-allow/index.html">Allow</a> : <a href="index.html">RateLimit.RequestResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-679983657%2FClasslikes%2F769193423" anchor-label="Allow" id="-679983657%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="-679983657%2FClasslikes%2F769193423" anchor-label="Allow" id="-679983657%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>The request was allowed.</div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-allow/index.html">Allow</a> : <a href="index.html">RateLimit.RequestResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The request was allowed.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 <a data-name="-459581165%2FClasslikes%2F769193423" anchor-label="Block" id="-459581165%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-block/index.html">Block</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-459581165%2FClasslikes%2F769193423"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="-block/index.html"><span><span>Block</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-459581165%2FClasslikes%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">data class <a href="-block/index.html">Block</a>(retryAfter: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a>) : <a href="index.html">RateLimit.RequestResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="-459581165%2FClasslikes%2F769193423" anchor-label="Block" id="-459581165%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="-459581165%2FClasslikes%2F769193423" anchor-label="Block" id="-459581165%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>The request was blocked.</div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-block/index.html">Block</a><span class="token punctuation">(</span>retryAfter<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a><span class="token punctuation">)</span> : <a href="index.html">RateLimit.RequestResult</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">The request was blocked.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <h2 class="">Inheritors</h2>
-              <div class="table" data-togglable="Inheritors"><a data-name="-679983657%2FInheritors%2F769193423" anchor-label="RateLimit.RequestResult" id="-679983657%2FInheritors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+              <div class="table" data-togglable="Inheritors"><a data-name="-679983657%2FInheritors%2F769193423" anchor-label="Allow" id="-679983657%2FInheritors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-allow/index.html">RateLimit.RequestResult</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-679983657%2FInheritors%2F769193423"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="-allow/index.html">Allow</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-679983657%2FInheritors%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-459581165%2FInheritors%2F769193423" anchor-label="RateLimit.RequestResult" id="-459581165%2FInheritors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+<a data-name="-459581165%2FInheritors%2F769193423" anchor-label="Block" id="-459581165%2FInheritors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-block/index.html">RateLimit.RequestResult</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-459581165%2FInheritors%2F769193423"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="-block/index.html">Block</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-459581165%2FInheritors%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
@@ -84,10 +88,12 @@
                 </div>
               </div>
               <h2 class="">Sources</h2>
-              <div class="table" data-togglable="Sources"><a data-name="-385949198%2FSource%2F769193423" anchor-label="https://github.com/hfhbd/RateLimit/tree/main/src/main/kotlin/app/softwork/ratelimit/RateLimit.kt#L18" id="-385949198%2FSource%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+              <div class="table" data-togglable="Sources"><a data-name="-385949198%2FSource%2F769193423" anchor-label="https://github.com/hfhbd/RateLimit/tree/main/src/main/kotlin/app/softwork/ratelimit/RateLimit.kt#L28" id="-385949198%2FSource%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
                 <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="https://github.com/hfhbd/RateLimit/tree/main/src/main/kotlin/app/softwork/ratelimit/RateLimit.kt#L18">jvm source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-385949198%2FSource%2F769193423"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="https://github.com/hfhbd/RateLimit/tree/main/src/main/kotlin/app/softwork/ratelimit/RateLimit.kt#L28">jvm source</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-385949198%2FSource%2F769193423"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
@@ -97,7 +103,7 @@
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
   </body>

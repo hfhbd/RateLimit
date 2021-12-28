@@ -1,22 +1,6 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:app.softwork.ratelimit////PointingToDeclaration/-rate-limit/app.softwork.ratelimit/index.html
-$dokka.location:app.softwork.ratelimit/DatabaseStorage.DatabaseTimeSource.DatabaseTimeMark///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-database-storage/-database-time-source/-database-time-mark/index.html
-$dokka.location:app.softwork.ratelimit/DatabaseStorage.DatabaseTimeSource.DatabaseTimeMark/DatabaseTimeMark/#kotlin.Long/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-database-storage/-database-time-source/-database-time-mark/-database-time-mark.html
-$dokka.location:app.softwork.ratelimit/DatabaseStorage.DatabaseTimeSource.DatabaseTimeMark/elapsedNow/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-database-storage/-database-time-source/-database-time-mark/elapsed-now.html
-$dokka.location:app.softwork.ratelimit/DatabaseStorage.DatabaseTimeSource.DatabaseTimeMark/mark/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-database-storage/-database-time-source/-database-time-mark/mark.html
-$dokka.location:app.softwork.ratelimit/DatabaseStorage.DatabaseTimeSource///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-database-storage/-database-time-source/index.html
-$dokka.location:app.softwork.ratelimit/DatabaseStorage.DatabaseTimeSource/durationUnit/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-database-storage/-database-time-source/duration-unit.html
-$dokka.location:app.softwork.ratelimit/DatabaseStorage.DatabaseTimeSource/markNow/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-database-storage/-database-time-source/mark-now.html
-$dokka.location:app.softwork.ratelimit/DatabaseStorage.DatabaseTimeSource/read/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-database-storage/-database-time-source/read.html
-$dokka.location:app.softwork.ratelimit/DatabaseStorage///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-database-storage/index.html
-$dokka.location:app.softwork.ratelimit/DatabaseStorage/timeSource/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-database-storage/time-source.html
-$dokka.location:app.softwork.ratelimit/InMemory///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-in-memory/index.html
-$dokka.location:app.softwork.ratelimit/InMemory/InMemory/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-in-memory/-in-memory.html
-$dokka.location:app.softwork.ratelimit/InMemory/getOrNull/#kotlin.String/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-in-memory/get-or-null.html
-$dokka.location:app.softwork.ratelimit/InMemory/remove/#kotlin.String/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-in-memory/remove.html
-$dokka.location:app.softwork.ratelimit/InMemory/set/#kotlin.String#app.softwork.ratelimit.Storage.Requested/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-in-memory/set.html
-$dokka.location:app.softwork.ratelimit/InMemory/timeSource/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-in-memory/time-source.html
 $dokka.location:app.softwork.ratelimit/RateLimit.Configuration///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-configuration/index.html
 $dokka.location:app.softwork.ratelimit/RateLimit.Configuration/Configuration/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-configuration/-configuration.html
 $dokka.location:app.softwork.ratelimit/RateLimit.Configuration/alwaysAllow/#kotlin.Function1[kotlin.String,kotlin.Boolean]/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-configuration/always-allow.html
@@ -36,24 +20,19 @@ $dokka.location:app.softwork.ratelimit/RateLimit.RequestResult.Block/Block/#kotl
 $dokka.location:app.softwork.ratelimit/RateLimit.RequestResult.Block/retryAfter/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-request-result/-block/retry-after.html
 $dokka.location:app.softwork.ratelimit/RateLimit.RequestResult///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-request-result/index.html
 $dokka.location:app.softwork.ratelimit/RateLimit.SkipResult.ExecuteRateLimit///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-skip-result/-execute-rate-limit/index.html
-$dokka.location:app.softwork.ratelimit/RateLimit.SkipResult.ExecuteRateLimit/name/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-skip-result/-execute-rate-limit/name.html
-$dokka.location:app.softwork.ratelimit/RateLimit.SkipResult.ExecuteRateLimit/ordinal/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-skip-result/-execute-rate-limit/ordinal.html
 $dokka.location:app.softwork.ratelimit/RateLimit.SkipResult.SkipRateLimit///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-skip-result/-skip-rate-limit/index.html
-$dokka.location:app.softwork.ratelimit/RateLimit.SkipResult.SkipRateLimit/name/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-skip-result/-skip-rate-limit/name.html
-$dokka.location:app.softwork.ratelimit/RateLimit.SkipResult.SkipRateLimit/ordinal/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-skip-result/-skip-rate-limit/ordinal.html
 $dokka.location:app.softwork.ratelimit/RateLimit.SkipResult///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-skip-result/index.html
 $dokka.location:app.softwork.ratelimit/RateLimit///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/index.html
 $dokka.location:app.softwork.ratelimit/RateLimit/RateLimit/#app.softwork.ratelimit.RateLimit.Configuration/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-rate-limit.html
 $dokka.location:app.softwork.ratelimit/RateLimit/configuration/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/configuration.html
 $dokka.location:app.softwork.ratelimit/RateLimit/isAllowed/#kotlin.String/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/is-allowed.html
 $dokka.location:app.softwork.ratelimit/Storage.Requested///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/-requested/index.html
-$dokka.location:app.softwork.ratelimit/Storage.Requested/Requested/#kotlin.Int#kotlin.time.TimeMark/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/-requested/-requested.html
 $dokka.location:app.softwork.ratelimit/Storage.Requested/lastRequest/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/-requested/last-request.html
 $dokka.location:app.softwork.ratelimit/Storage.Requested/trial/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/-requested/trial.html
 $dokka.location:app.softwork.ratelimit/Storage///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/index.html
+$dokka.location:app.softwork.ratelimit/Storage/clock/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/clock.html
 $dokka.location:app.softwork.ratelimit/Storage/getOrNull/#kotlin.String/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/get-or-null.html
 $dokka.location:app.softwork.ratelimit/Storage/remove/#kotlin.String/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/remove.html
-$dokka.location:app.softwork.ratelimit/Storage/set/#kotlin.String#app.softwork.ratelimit.Storage.Requested/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/set.html
-$dokka.location:app.softwork.ratelimit/Storage/timeSource/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/time-source.html
+$dokka.location:app.softwork.ratelimit/Storage/set/#kotlin.String#kotlin.Int#kotlinx.datetime.Instant/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/set.html
 app.softwork.ratelimit
 

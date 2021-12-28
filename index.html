@@ -2,44 +2,52 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>RateLimit</title>
-<link href="images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "";</script><script type="text/javascript" src="scripts/sourceset_dependencies.js" async="async"></script><link href="styles/style.css" rel="Stylesheet"><link href="styles/logo-styles.css" rel="Stylesheet"><link href="styles/jetbrains-mono.css" rel="Stylesheet"><link href="styles/main.css" rel="Stylesheet"><script type="text/javascript" src="scripts/clipboard.js" async="async"></script><script type="text/javascript" src="scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="scripts/main.js" async="async"></script>  </head>
+<link href="images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="scripts/sourceset_dependencies.js" async="async"></script><link href="styles/style.css" rel="Stylesheet"><link href="styles/jetbrains-mono.css" rel="Stylesheet"><link href="styles/main.css" rel="Stylesheet"><link href="styles/prism.css" rel="Stylesheet"><link href="styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="scripts/clipboard.js" async="async"></script><script type="text/javascript" src="scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="scripts/main.js" defer="defer"></script><script type="text/javascript" src="scripts/prism.js" async="async"></script>  </head>
   <body>
+    <div class="navigation-wrapper" id="navigation-wrapper">
+      <div id="leftToggler"><span class="icon-toggler"></span></div>
+      <div class="library-name"><a href="index.html">RateLimit</a></div>
+      <div></div>
+      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+      </div>
+    </div>
     <div id="container">
-      <div id="leftColumn"><a href="index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
+      <div id="leftColumn">
         <div id="sideMenu"></div>
       </div>
       <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="scripts/main.js"></script>        <div class="main-content" id="content" pageIds="RateLimit::////PointingToDeclaration//769193423">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="index.html">RateLimit</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
+        <div class="main-content" id="content" pageIds="RateLimit::////PointingToDeclaration//769193423">
+          <div class="breadcrumbs"></div>
           <div class="cover ">
-            <h1 class="cover"><span>Rate</span><wbr></wbr><span>Limit</span></h1>
-            <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><p class="paragraph">Limit the requests sent to a Ktor server with a timeout.</p><ul><li><p class="paragraph"><a href="https://github.com/hfhbd/RateLimit">Source code</a></p></li><li><p class="paragraph"><a href="https://ratelimit.softwork.app">Docs</a></p></li></ul><h2 class=""> Install</h2><p class="paragraph">This package is uploaded to MavenCentral.</p><div class="sample-container"><code class="" theme="idea"><pre>repositories {<br>    mavenCentral()<br>}<br><br>dependencies {<br>    implementation(&quot;app.softwork:ratelimit:LATEST&quot;)<br>}</pre></code></div><h2 class=""> Usage</h2><p class="paragraph">Simple install it in your application module.</p><div class="sample-container"><code class="" theme="idea"><pre>install(RateLimit) // use the default configuration<br><br>install(RateLimit) {<br>    limit = 10<br>    timeout = 1.hours<br><br>    host = { call -&gt;<br>        call.request.local.host<br>    }<br><br>    alwaysAllow { host -&gt;<br>        host.startsWith(&quot;foo&quot;)<br>    }<br><br>    alwaysBlock { host -&gt;<br>        host.endsWith(&quot;bar&quot;)<br>    }<br><br>    skip { call -&gt;<br>        if (call.request.local.uri == &quot;/login&quot;) {<br>            RateLimit.SkipResult.ExecuteRateLimit<br>        } else {<br>            RateLimit.SkipResult.SkipRateLimit<br>        }<br>    }<br>}</pre></code></div><h2 class=""> Storage</h2><h3 class=""> InMemory</h3><p class="paragraph">By default, <code>RateLimit</code> uses an in-memory map to store the requests.</p><div class="sample-container"><code class="" theme="idea"><pre>install(RateLimit) {<br>    storage = InMemory()<br>}</pre></code></div><h3 class=""> Persistent Storage</h3><p class="paragraph">To persist the rate limiting, you need to implement a <code>Storage</code> provider, which heavily uses the <code>ExperimentalTime</code> classes: <code>TimeSource</code> and <code>TimeStamp</code>. The <code>DatabaseStorage</code> provides a serializable TimeStamp to persist it in a database.</p><div class="sample-container"><code class="" theme="idea"><pre>class DBStorage(private val db: Database) : DatabaseStorage {<br>    // ... implement the save and fetch methods depending on your database<br>}<br><br>install(RateLimit) {<br>    storage = DBStorage(db = db)<br>}</pre></code></div><p class="paragraph">You can use the <a href="https://github.com/hfhbd/RateLimit/tree/master/src/jvmTest/kotlin/app/softwork/ratelimit/DatabaseStorageTest.kt">DatabaseStorageTest</a> as a template. All functions are <code>suspend</code> to support async <code>IO</code> operations.</p><h2 class=""> License</h2><p class="paragraph">Apache 2</p></div></div>
+            <h1 class="cover"><span>Rate</span><wbr></wbr><span><span>Limit</span></span></h1>
+            <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><p class="paragraph">Limit the requests sent to a Ktor server with a timeout.</p><ul><li><p class="paragraph"><a href="https://github.com/hfhbd/RateLimit">Source code</a></p></li><li><p class="paragraph"><a href="https://ratelimit.softwork.app">Docs</a></p></li></ul><h2 class=""> Install</h2><p class="paragraph">This package is uploaded to MavenCentral.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">repositories {<br>    mavenCentral()<br>}<br><br>dependencies {<br>    implementation(&quot;app.softwork:ratelimit:LATEST&quot;)<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h2 class=""> Usage</h2><p class="paragraph">Simple install it in your application module.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">install(RateLimit) {<br>    storage = // Storage implementation, required<br><br>    limit = 1000<br>    timeout = 1.hours<br><br>    host = { call -&gt;<br>        call.request.local.remoteHost<br>    }<br><br>    alwaysAllow { host -&gt;<br>        host.startsWith(&quot;foo&quot;)<br>    }<br><br>    alwaysBlock { host -&gt;<br>        host.endsWith(&quot;bar&quot;)<br>    }<br><br>    skip { call -&gt;<br>        if (call.request.local.uri == &quot;/login&quot;) {<br>            RateLimit.SkipResult.ExecuteRateLimit<br>        } else {<br>            RateLimit.SkipResult.SkipRateLimit<br>        }<br>    }<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h2 class=""> Storage</h2><p class="paragraph">To persist the rate limiting, you need to implement a <code class="lang-kotlin">Storage</code> provider, which use <code class="lang-kotlin">kotlinx.datetime.Instant</code>.  All functions are <code class="lang-kotlin">suspend</code> to support async <code class="lang-kotlin">IO</code> operations.</p><h2 class=""> License</h2><p class="paragraph">Apache 2</p></div></div>
           </div>
           <h2 class="">Packages</h2>
           <div class="table"><a data-name="-1607473033%2FPackages%2F769193423" anchor-label="app.softwork.ratelimit" id="-1607473033%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
             <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
               <div>
                 <div class="main-subrow ">
-                  <div class=""><span class="inline-flex"><a href="-rate-limit/app.softwork.ratelimit/index.html">app.softwork.ratelimit</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1607473033%2FPackages%2F769193423"></span>
+                  <div class=""><span class="inline-flex">
+                      <div><a href="-rate-limit/app.softwork.ratelimit/index.html">app.softwork.ratelimit</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1607473033%2FPackages%2F769193423"></span>
                         <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                       </span></span></div>
                   <div class="pull-right"></div>
                 </div>
-                <div><span class="brief-comment"><a data-name="-1607473033%2FPackages%2F769193423" anchor-label="app.softwork.ratelimit" id="-1607473033%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>The package contains the feature <code>RateLimit</code>, the <code>Storage</code>, an <code>InMemory</code> implementation and the <code>DatabaseStorage</code> interface.</span></div>
+                <div><span class="brief-comment"><a data-name="-1607473033%2FPackages%2F769193423" anchor-label="app.softwork.ratelimit" id="-1607473033%2FPackages%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+                    <p class="paragraph">The package contains the feature <code class="lang-kotlin">RateLimit</code>, the <code class="lang-kotlin">Storage</code>, an <code class="lang-kotlin">InMemory</code> implementation and the <code class="lang-kotlin">DatabaseStorage</code> interface.</p>
+                  </span></div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
   </body>
