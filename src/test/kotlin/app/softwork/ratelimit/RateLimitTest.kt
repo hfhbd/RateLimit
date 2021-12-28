@@ -1,5 +1,6 @@
 package app.softwork.ratelimit
 
+import app.softwork.ratelimit.MockStorage.Companion.toClock
 import app.softwork.ratelimit.RateLimit.RequestResult.Allow
 import app.softwork.ratelimit.RateLimit.RequestResult.Block
 import io.ktor.application.*
@@ -11,6 +12,7 @@ import io.ktor.server.testing.*
 import kotlinx.coroutines.*
 import kotlin.test.*
 import kotlin.time.*
+import kotlin.time.Duration.Companion.seconds
 
 @ExperimentalTime
 class RateLimitTest {
@@ -18,6 +20,7 @@ class RateLimitTest {
     fun installTest() = withTestApplication({
         install(RateLimit) {
             limit = 10
+            storage = MockStorage(TestTimeSource().toClock())
         }
         routing {
             get {
@@ -33,10 +36,18 @@ class RateLimitTest {
     }
 
     @Test
+    fun missingStorage(): Unit = withTestApplication {
+        assertFailsWith<IllegalArgumentException> {
+            application.install(RateLimit)
+        }
+    }
+
+    @Test
     fun noHeader() = withTestApplication({
         install(RateLimit) {
             limit = 10
             sendRetryAfterHeader = false
+            storage = MockStorage(TestTimeSource().toClock())
         }
         routing {
             get {
@@ -54,6 +65,7 @@ class RateLimitTest {
     @Test
     fun rateLimitOnlyLoginEndpoint() = withTestApplication({
         install(RateLimit) {
+            storage = MockStorage(TestTimeSource().toClock())
             limit = 3
             skip { call ->
                 if (call.request.local.uri == "/login") {
@@ -81,6 +93,7 @@ class RateLimitTest {
     @Test
     fun blockAllowTest() = withTestApplication({
         install(RateLimit) {
+            storage = MockStorage(TestTimeSource().toClock())
             limit = 3
             alwaysBlock { host ->
                 host == "blockedHost"
@@ -109,7 +122,6 @@ class RateLimitTest {
     }
 }
 
-@ExperimentalTime
 suspend fun RateLimit.test(limit: Int, timeout: Duration) {
     repeat(limit) {
         assertEquals(Allow, isAllowed("a"))
@@ -118,11 +130,11 @@ suspend fun RateLimit.test(limit: Int, timeout: Duration) {
     repeat(limit * 2) {
         assertTrue(isAllowed("a") is Block)
     }
-    delay(timeMillis = 1000)
+    delay(1.seconds)
     repeat(limit) {
         assertTrue(isAllowed("a") is Block)
     }
-    delay(timeMillis = timeout.inWholeMilliseconds)
+    delay(timeout)
     assertEquals(Allow, isAllowed("a"))
 
     repeat(limit) {
@@ -132,11 +144,11 @@ suspend fun RateLimit.test(limit: Int, timeout: Duration) {
     repeat(limit * 2) {
         val result = isAllowed("a")
         assertTrue(result is Block)
-        assertTrue(result.retryAfter < timeout)
+        assertEquals(timeout, result.retryAfter)
     }
 
     repeat(limit * 2) {
-        delay(timeMillis = timeout.inWholeMilliseconds)
+        delay(timeout)
         assertEquals(Allow, isAllowed("a"))
     }
 }
