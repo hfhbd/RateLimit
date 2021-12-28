@@ -139,7 +139,7 @@ public class RateLimit(public val configuration: Configuration) {
             skip = block
         }
 
-        internal var skip: (ApplicationCall) -> SkipResult = { SkipResult.ExecuteRateLimit }
+        internal var skip: (ApplicationCall) -> SkipResult = { ExecuteRateLimit }
 
         /**
          * Add the [HttpHeaders.RetryAfter] header to the response, if the [host] is blocked by the rate limit check or by the [alwaysBlock] function.
@@ -165,7 +165,7 @@ public class RateLimit(public val configuration: Configuration) {
 
         private suspend fun PipelineContext<Unit, ApplicationCall>.intercept(feature: RateLimit) {
             val host = feature.configuration.host(call)
-            if (feature.configuration.skip(call) == SkipResult.SkipRateLimit) {
+            if (feature.configuration.skip(call) == SkipRateLimit) {
                 proceed()
                 return
             }
