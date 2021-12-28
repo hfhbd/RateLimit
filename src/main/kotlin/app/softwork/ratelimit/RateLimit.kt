@@ -1,6 +1,9 @@
 package app.softwork.ratelimit
 
-import app.softwork.ratelimit.RateLimit.RequestResult.*
+import app.softwork.ratelimit.RateLimit.RequestResult.Allow
+import app.softwork.ratelimit.RateLimit.RequestResult.Block
+import app.softwork.ratelimit.RateLimit.SkipResult.ExecuteRateLimit
+import app.softwork.ratelimit.RateLimit.SkipResult.SkipRateLimit
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.response.*
@@ -14,8 +17,14 @@ import kotlin.time.Duration.Companion.hours
  *
  * @param configuration configure the behavior how and if a call should be allowed or blocked.
  */
-@ExperimentalTime
 public class RateLimit(public val configuration: Configuration) {
+
+    init {
+        require(configuration.storageIsInitialized()) {
+            "The passed configuration requires a storage."
+        }
+    }
+
     /**
      * The result if a call should be allowed or blocked.
      */
@@ -54,19 +63,20 @@ public class RateLimit(public val configuration: Configuration) {
         val storage = configuration.storage
         val previous = storage.getOrNull(host)
         if (previous == null) {
-            storage.set(host, Storage.Requested(trial = 1, lastRequest = storage.timeSource.markNow()))
+            storage.set(host, trial = 1, lastRequest = storage.clock.now())
             return Allow
         }
         if (previous.trial < configuration.limit) {
-            storage.set(host, previous.copy(trial = previous.trial + 1, lastRequest = storage.timeSource.markNow()))
+            storage.set(host, trial = previous.trial + 1, lastRequest = storage.clock.now())
             return Allow
         }
-        val currentTimeout = previous.lastRequest.elapsedNow()
-        if (currentTimeout > configuration.timeout) {
+        val now = storage.clock.now()
+        val allowedAfter = previous.lastRequest + configuration.timeout
+        if (now >= allowedAfter) {
             storage.remove(host)
             return Allow
         }
-        val retryAfter = configuration.timeout - currentTimeout
+        val retryAfter = allowedAfter - now
         return Block(retryAfter)
     }
 
@@ -105,10 +115,9 @@ public class RateLimit(public val configuration: Configuration) {
         internal var alwaysBlock: (String) -> Boolean = { false }
 
         /**
-         * The storage provider to persist the request information.
-         * By default, an [InMemory] implementation is used.
+         * The required storage provider to persist the request information.
          */
-        public var storage: Storage = InMemory()
+        public lateinit var storage: Storage
 
         /**
          * The number of allowed requests until the request will be blocked.
@@ -137,6 +146,8 @@ public class RateLimit(public val configuration: Configuration) {
          * Default value is true.
          */
         public var sendRetryAfterHeader: Boolean = true
+
+        internal fun storageIsInitialized() = ::storage.isInitialized
     }
 
     public companion object Feature : ApplicationFeature<Application, Configuration, RateLimit> {

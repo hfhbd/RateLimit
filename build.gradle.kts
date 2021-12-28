@@ -23,14 +23,18 @@ dependencies {
     val ktorVersion = "1.6.7"
 
     api("io.ktor:ktor-server-core:$ktorVersion")
+    api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.1")
 
     testImplementation(kotlin("test"))
     // Apache 2, https://github.com/JetBrains/Exposed/releases/latest
     val exposedVersion = "0.37.2"
     testImplementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     testImplementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    testImplementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
 
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
 
     // EPL 1.0, https://github.com/h2database/h2database/releases/latest
     testRuntimeOnly("com.h2database:h2:2.0.204")

@@ -1,10 +1,12 @@
 package app.softwork.ratelimit
 
-import kotlinx.coroutines.*
+import app.softwork.ratelimit.MockStorage.Companion.toClock
+import kotlinx.coroutines.test.*
+import kotlinx.datetime.*
 import org.jetbrains.exposed.dao.*
 import org.jetbrains.exposed.dao.id.*
-import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.kotlin.datetime.*
 import org.jetbrains.exposed.sql.transactions.*
 import org.jetbrains.exposed.sql.transactions.experimental.*
 import kotlin.test.*
@@ -16,45 +18,40 @@ class DatabaseStorageTest {
     object Locks : IntIdTable() {
         val host = varchar("host", 256).uniqueIndex()
         val trials = integer("trials")
-        val lastRequest = long("lastRequest")
+        val lastRequest = timestamp("lastRequest")
     }
 
-    @ExperimentalTime
     class Lock(id: EntityID<Int>) : IntEntity(id) {
         companion object : IntEntityClass<Lock>(Locks)
 
         var host by Locks.host
         var trials by Locks.trials
-        private var _lastRequest by Locks.lastRequest
-        var lastRequest: DatabaseStorage.DatabaseTimeSource.DatabaseTimeMark
-            get() = DatabaseStorage.DatabaseTimeSource.DatabaseTimeMark(mark = _lastRequest)
-            set(value) {
-                _lastRequest = value.mark
-            }
+        var lastRequest by Locks.lastRequest
     }
 
-    @ExperimentalTime
-    class DBStorage(private val db: Database) : DatabaseStorage {
+    class DBStorage(private val db: Database, override val clock: Clock) : Storage {
         override suspend fun getOrNull(host: String): Storage.Requested? = newSuspendedTransaction(db = db) {
             val found = Lock.find { Locks.host eq host }.firstOrNull()
             if (found != null) {
-                Storage.Requested(trial = found.trials, lastRequest = found.lastRequest)
+                Requested(trial = found.trials, lastRequest = found.lastRequest)
             } else {
                 null
             }
         }
 
-        override suspend fun set(host: String, requested: Storage.Requested) {
+        data class Requested(override val trial: Int, override val lastRequest: Instant): Storage.Requested
+
+        override suspend fun set(host: String, trial: Int, lastRequest: Instant) {
             newSuspendedTransaction(db = db) {
                 val entry = Lock.find { Locks.host eq host }.firstOrNull()
                 entry?.apply {
-                    this.trials = requested.trial
-                    this.lastRequest = requested.lastRequest as DatabaseStorage.DatabaseTimeSource.DatabaseTimeMark
+                    this.trials = trial
+                    this.lastRequest = lastRequest
                 } ?: Lock.new {
-                        this.host = host
-                        this.trials = requested.trial
-                        this.lastRequest = requested.lastRequest as DatabaseStorage.DatabaseTimeSource.DatabaseTimeMark
-                    }
+                    this.host = host
+                    this.trials = trial
+                    this.lastRequest = lastRequest
+                }
             }
         }
 
@@ -68,29 +65,27 @@ class DatabaseStorageTest {
     fun dbBasedRateLimit() = dbTest(setup = {
         SchemaUtils.create(Locks)
     }) { db ->
-        val limit = 3
-        val timeout = 3.seconds
         val rateLimit = RateLimit(RateLimit.Configuration().apply {
-            this.limit = limit
-            this.timeout = timeout
-            storage = DBStorage(db = db)
+            limit = 3
+            timeout = 3.seconds
+            storage = DBStorage(db = db, testTimeSource.toClock())
         })
 
-        rateLimit.test(limit = limit, timeout = timeout)
+        rateLimit.test(limit = 3, timeout = 3.seconds)
     }
 
     private fun dbTest(
         name: String = "test",
-        setup: suspend (Database) -> Unit = { },
-        test: suspend (Database) -> Unit
+        setup: suspend TestScope.(Database) -> Unit = { },
+        test: suspend TestScope.(Database) -> Unit
     ) {
         val db = Database.connect("jdbc:h2:mem:$name;DB_CLOSE_DELAY=-1;", "org.h2.Driver")
         transaction(db) {
-            runBlocking {
+            runTest {
                 setup(db)
             }
         }
-        runBlocking {
+        runTest {
             test(db)
         }
         TransactionManager.closeAndUnregister(db)
