@@ -15,14 +15,13 @@ import kotlin.time.Duration.Companion.hours
 /**
  * Rate limit feature to block a request if a host has requested the server too often.
  *
- * @param configuration configure the behavior how and if a call should be allowed or blocked.
+ * @param storage containing the persistence rate limit hits.
  */
-public class RateLimit(public val configuration: Configuration) {
+public class RateLimit(public val storage: Storage) : ApplicationFeature<Application, RateLimit.Configuration, RateLimit> {
+    private lateinit var configuration: Configuration
 
-    init {
-        require(configuration.storageIsInitialized()) {
-            "The passed configuration requires a storage."
-        }
+    public constructor(storage: Storage, configuration: Configuration) : this(storage) {
+        this.configuration = configuration
     }
 
     /**
@@ -60,7 +59,6 @@ public class RateLimit(public val configuration: Configuration) {
             return Block(configuration.timeout)
         }
 
-        val storage = configuration.storage
         val previous = storage.getOrNull(host)
         if (previous == null) {
             storage.set(host, trial = 1, lastRequest = storage.clock.now())
@@ -115,11 +113,6 @@ public class RateLimit(public val configuration: Configuration) {
         internal var alwaysBlock: (String) -> Boolean = { false }
 
         /**
-         * The required storage provider to persist the request information.
-         */
-        public lateinit var storage: Storage
-
-        /**
          * The number of allowed requests until the request will be blocked.
          * Default value is 1000.
          */
@@ -146,40 +139,36 @@ public class RateLimit(public val configuration: Configuration) {
          * Default value is true.
          */
         public var sendRetryAfterHeader: Boolean = true
-
-        internal fun storageIsInitialized() = ::storage.isInitialized
     }
 
-    public companion object Feature : ApplicationFeature<Application, Configuration, RateLimit> {
-        override val key: AttributeKey<RateLimit> = AttributeKey("RateLimit")
+    override val key: AttributeKey<RateLimit> = AttributeKey("RateLimit")
 
-        override fun install(pipeline: Application, configure: Configuration.() -> Unit): RateLimit {
-            val feature = RateLimit(Configuration().apply(configure))
+    override fun install(pipeline: Application, configure: Configuration.() -> Unit): RateLimit {
+        configuration = Configuration().apply(configure)
 
-            pipeline.intercept(ApplicationCallPipeline.Features) {
-                intercept(feature)
-            }
-
-            return feature
+        pipeline.intercept(ApplicationCallPipeline.Features) {
+            intercept()
         }
 
-        private suspend fun PipelineContext<Unit, ApplicationCall>.intercept(feature: RateLimit) {
-            val host = feature.configuration.host(call)
-            if (feature.configuration.skip(call) == SkipRateLimit) {
+        return this
+    }
+
+    private suspend fun PipelineContext<Unit, ApplicationCall>.intercept() {
+        val host = configuration.host(call)
+        if (configuration.skip(call) == SkipRateLimit) {
+            proceed()
+            return
+        }
+        when (val isAllowed = isAllowed(host)) {
+            is Allow -> {
                 proceed()
-                return
             }
-            when (val isAllowed = feature.isAllowed(host)) {
-                is Allow -> {
-                    proceed()
+            is Block -> {
+                finish()
+                if (configuration.sendRetryAfterHeader) {
+                    call.response.header(HttpHeaders.RetryAfter, isAllowed.retryAfter.inWholeSeconds)
                 }
-                is Block -> {
-                    finish()
-                    if (feature.configuration.sendRetryAfterHeader) {
-                        call.response.header(HttpHeaders.RetryAfter, isAllowed.retryAfter.inWholeSeconds)
-                    }
-                    call.respond(HttpStatusCode.TooManyRequests)
-                }
+                call.respond(HttpStatusCode.TooManyRequests)
             }
         }
     }

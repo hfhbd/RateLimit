@@ -65,10 +65,9 @@ class DatabaseStorageTest {
     fun dbBasedRateLimit() = dbTest(setup = {
         SchemaUtils.create(Locks)
     }) { db ->
-        val rateLimit = RateLimit(RateLimit.Configuration().apply {
+        val rateLimit = RateLimit(storage = DBStorage(db = db, testTimeSource.toClock()), RateLimit.Configuration().apply {
             limit = 3
             timeout = 3.seconds
-            storage = DBStorage(db = db, testTimeSource.toClock())
         })
 
         rateLimit.test(limit = 3, timeout = 3.seconds)
