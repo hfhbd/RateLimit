@@ -18,9 +18,8 @@ import kotlin.time.Duration.Companion.seconds
 class RateLimitTest {
     @Test
     fun installTest() = withTestApplication({
-        install(RateLimit) {
+        install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
             limit = 10
-            storage = MockStorage(TestTimeSource().toClock())
         }
         routing {
             get {
@@ -36,18 +35,10 @@ class RateLimitTest {
     }
 
     @Test
-    fun missingStorage(): Unit = withTestApplication {
-        assertFailsWith<IllegalArgumentException> {
-            application.install(RateLimit)
-        }
-    }
-
-    @Test
     fun noHeader() = withTestApplication({
-        install(RateLimit) {
+        install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
             limit = 10
             sendRetryAfterHeader = false
-            storage = MockStorage(TestTimeSource().toClock())
         }
         routing {
             get {
@@ -64,8 +55,7 @@ class RateLimitTest {
 
     @Test
     fun rateLimitOnlyLoginEndpoint() = withTestApplication({
-        install(RateLimit) {
-            storage = MockStorage(TestTimeSource().toClock())
+        install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
             limit = 3
             skip { call ->
                 if (call.request.local.uri == "/login") {
@@ -92,8 +82,7 @@ class RateLimitTest {
 
     @Test
     fun blockAllowTest() = withTestApplication({
-        install(RateLimit) {
-            storage = MockStorage(TestTimeSource().toClock())
+        install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
             limit = 3
             alwaysBlock { host ->
                 host == "blockedHost"

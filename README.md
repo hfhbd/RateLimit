@@ -24,9 +24,8 @@ dependencies {
 Simple install it in your application module.
 
 ```kotlin
-install(RateLimit) {
-    storage = // Storage implementation, required
-        
+val storage: Storage = // Storage implementation, required
+install(RateLimit(storage = storage)) {
     limit = 1000
     timeout = 1.hours
 
@@ -54,8 +53,8 @@ install(RateLimit) {
 
 ## Storage
 
-To persist the rate limiting, you need to implement a `Storage` provider, which use `kotlinx.datetime.Instant`. 
-All functions are `suspend` to support async `IO` operations.
+To persist the rate limiting, you need to implement a `Storage` provider, which use `kotlinx.datetime.Instant`. All
+functions are `suspend` to support async `IO` operations.
 
 ## License
 
@@ -63,5 +62,4 @@ Apache 2
 
 # Package app.softwork.ratelimit
 
-The package contains the feature `RateLimit`, the `Storage`, an `InMemory` implementation and the `DatabaseStorage`
-interface. 
+The package contains the feature `RateLimit` and the `Storage` implementation.
