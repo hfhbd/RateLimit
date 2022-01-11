@@ -23,7 +23,7 @@ dependencies {
     val ktorVersion = "1.6.7"
 
     api("io.ktor:ktor-server-core:$ktorVersion")
-    api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.1")
+    api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
 
     testImplementation(kotlin("test"))
     // Apache 2, https://github.com/JetBrains/Exposed/releases/latest
