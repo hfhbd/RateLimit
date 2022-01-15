@@ -9,11 +9,7 @@ $dokka.location:app.softwork.ratelimit/RateLimit.Configuration/host/#kotlin.Func
 $dokka.location:app.softwork.ratelimit/RateLimit.Configuration/limit/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-configuration/limit.html
 $dokka.location:app.softwork.ratelimit/RateLimit.Configuration/sendRetryAfterHeader/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-configuration/send-retry-after-header.html
 $dokka.location:app.softwork.ratelimit/RateLimit.Configuration/skip/#kotlin.Function1[io.ktor.application.ApplicationCall,app.softwork.ratelimit.RateLimit.SkipResult]/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-configuration/skip.html
-$dokka.location:app.softwork.ratelimit/RateLimit.Configuration/storage/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-configuration/storage.html
 $dokka.location:app.softwork.ratelimit/RateLimit.Configuration/timeout/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-configuration/timeout.html
-$dokka.location:app.softwork.ratelimit/RateLimit.Feature///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-feature/index.html
-$dokka.location:app.softwork.ratelimit/RateLimit.Feature/install/#io.ktor.application.Application#kotlin.Function1[app.softwork.ratelimit.RateLimit.Configuration,kotlin.Unit]/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-feature/install.html
-$dokka.location:app.softwork.ratelimit/RateLimit.Feature/key/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-feature/key.html
 $dokka.location:app.softwork.ratelimit/RateLimit.RequestResult.Allow///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-request-result/-allow/index.html
 $dokka.location:app.softwork.ratelimit/RateLimit.RequestResult.Block///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-request-result/-block/index.html
 $dokka.location:app.softwork.ratelimit/RateLimit.RequestResult.Block/Block/#kotlin.time.Duration/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-request-result/-block/-block.html
@@ -23,9 +19,12 @@ $dokka.location:app.softwork.ratelimit/RateLimit.SkipResult.ExecuteRateLimit///P
 $dokka.location:app.softwork.ratelimit/RateLimit.SkipResult.SkipRateLimit///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-skip-result/-skip-rate-limit/index.html
 $dokka.location:app.softwork.ratelimit/RateLimit.SkipResult///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-skip-result/index.html
 $dokka.location:app.softwork.ratelimit/RateLimit///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/index.html
-$dokka.location:app.softwork.ratelimit/RateLimit/RateLimit/#app.softwork.ratelimit.RateLimit.Configuration/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-rate-limit.html
-$dokka.location:app.softwork.ratelimit/RateLimit/configuration/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/configuration.html
+$dokka.location:app.softwork.ratelimit/RateLimit/RateLimit/#app.softwork.ratelimit.Storage#app.softwork.ratelimit.RateLimit.Configuration/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-rate-limit.html
+$dokka.location:app.softwork.ratelimit/RateLimit/RateLimit/#app.softwork.ratelimit.Storage/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/-rate-limit.html
+$dokka.location:app.softwork.ratelimit/RateLimit/install/#io.ktor.application.Application#kotlin.Function1[app.softwork.ratelimit.RateLimit.Configuration,kotlin.Unit]/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/install.html
 $dokka.location:app.softwork.ratelimit/RateLimit/isAllowed/#kotlin.String/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/is-allowed.html
+$dokka.location:app.softwork.ratelimit/RateLimit/key/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/key.html
+$dokka.location:app.softwork.ratelimit/RateLimit/storage/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit/storage.html
 $dokka.location:app.softwork.ratelimit/Storage.Requested///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/-requested/index.html
 $dokka.location:app.softwork.ratelimit/Storage.Requested/lastRequest/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/-requested/last-request.html
 $dokka.location:app.softwork.ratelimit/Storage.Requested/trial/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/-requested/trial.html
