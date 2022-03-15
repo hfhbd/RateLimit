@@ -20,7 +20,7 @@ kotlin {
 
 dependencies {
     // Apache 2, https://github.com/ktorio/ktor/releases/latest
-    val ktorVersion = "1.6.7"
+    val ktorVersion = "1.6.8"
 
     api("io.ktor:ktor-server-core:$ktorVersion")
     api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
