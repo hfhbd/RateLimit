@@ -52,9 +52,6 @@ tasks.dokkaHtml {
                 remoteUrl by uri("https://github.com/hfhbd/RateLimit/tree/main/src/$sourceSetName/kotlin").toURL()
                 remoteLineSuffix by "#L"
             }
-            externalDocumentationLink {
-                url by uri("https://ratelimit.softwork.app/").toURL()
-            }
         }
     }
 }
