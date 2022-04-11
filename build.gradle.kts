@@ -39,7 +39,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
 
     // EPL 1.0, https://github.com/h2database/h2database/releases/latest
-    testRuntimeOnly("com.h2database:h2:2.1.210")
+    testRuntimeOnly("com.h2database:h2:2.1.212")
 }
 
 tasks.dokkaHtml {
