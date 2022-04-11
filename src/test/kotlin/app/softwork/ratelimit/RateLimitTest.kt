@@ -87,15 +87,8 @@ class RateLimitTest {
                 call.respondText { "42" }
             }
             route("/login") {
-                this@routing.install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
+                install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
                     limit = 3
-                    skip { call ->
-                        if (call.request.local.uri == "/login") {
-                            SkipResult.ExecuteRateLimit
-                        } else {
-                            SkipResult.SkipRateLimit
-                        }
-                    }
 
                     this@route.get {
                         call.respondText { "/login called" }
