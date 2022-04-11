@@ -1,6 +1,16 @@
 package app.softwork.ratelimit
 
 import app.softwork.ratelimit.MockStorage.Companion.toClock
+import io.ktor.client.*
+import io.ktor.client.plugins.*
+import io.ktor.client.request.*
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.cio.*
+import io.ktor.server.engine.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import kotlinx.datetime.*
 import org.jetbrains.exposed.dao.*
@@ -12,6 +22,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.*
 import kotlin.test.*
 import kotlin.time.*
 import kotlin.time.Duration.Companion.seconds
+import io.ktor.client.engine.cio.CIO as ClientCIO
 
 @ExperimentalTime
 class DatabaseStorageTest {
@@ -39,7 +50,7 @@ class DatabaseStorageTest {
             }
         }
 
-        data class Requested(override val trial: Int, override val lastRequest: Instant): Storage.Requested
+        data class Requested(override val trial: Int, override val lastRequest: Instant) : Storage.Requested
 
         override suspend fun set(host: String, trial: Int, lastRequest: Instant) {
             newSuspendedTransaction(db = db) {
@@ -65,12 +76,44 @@ class DatabaseStorageTest {
     fun dbBasedRateLimit() = dbTest(setup = {
         SchemaUtils.create(Locks)
     }) { db ->
-        val rateLimit = RateLimit(storage = DBStorage(db = db, testTimeSource.toClock()), RateLimit.Configuration().apply {
+        val rateLimit = Configuration(storage = DBStorage(db = db, testTimeSource.toClock())) {
             limit = 3
             timeout = 3.seconds
-        })
+        }
 
         rateLimit.test(limit = 3, timeout = 3.seconds)
+    }
+
+    @Test
+    fun integrationTest() = dbTest(setup = {
+        SchemaUtils.create(Locks)
+    }) {db ->
+        val server = embeddedServer(CIO, port = 0) {
+            routing {
+                install(RateLimit(storage = DBStorage(db = db, Clock.System))) {
+                    limit = 10
+
+                    this@routing.get {
+                        call.respondText { "Success" }
+                    }
+                }
+            }
+        }.start(wait = false)
+        val port = runBlocking { server.resolvedConnectors().first().port }
+
+        val client = HttpClient(ClientCIO) {
+            install(DefaultRequest) {
+                url {
+                    this.port = port
+                }
+            }
+        }
+        repeat(10) { assertEquals(HttpStatusCode.OK, client.get(urlString = "/").status) }
+        with(client.get("/")) {
+            assertEquals(HttpStatusCode.TooManyRequests, status)
+            assertTrue(headers[HttpHeaders.RetryAfter]!!.toLong() <= 60 * 60)
+        }
+        server.stop()
     }
 
     private fun dbTest(

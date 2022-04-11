@@ -10,15 +10,12 @@ import kotlin.time.Duration.Companion.seconds
 class MockStorageTest {
     @Test
     fun testMock() = runTest {
-        val limit = 3
-        val timeout = 3.seconds
-        val rateLimit = RateLimit(
+        val rateLimit: RateLimit = Configuration(
             storage = MockStorage(testTimeSource.toClock()),
-            configuration = RateLimit.Configuration().apply {
-                this.limit = limit
-                this.timeout = timeout
-            }
-        )
-        rateLimit.test(limit = limit, timeout = timeout)
+        ) {
+            limit = 3
+            timeout = 3.seconds
+        }
+        rateLimit.test(limit = 3, timeout = 3.seconds)
     }
 }

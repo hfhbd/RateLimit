@@ -20,7 +20,7 @@ kotlin {
 
 dependencies {
     // Apache 2, https://github.com/ktorio/ktor/releases/latest
-    val ktorVersion = "1.6.8"
+    val ktorVersion = "2.0.0"
 
     api("io.ktor:ktor-server-core:$ktorVersion")
     api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
@@ -33,6 +33,8 @@ dependencies {
     testImplementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
 
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("io.ktor:ktor-server-cio:$ktorVersion")
+    testImplementation("io.ktor:ktor-client-cio:$ktorVersion")
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
 

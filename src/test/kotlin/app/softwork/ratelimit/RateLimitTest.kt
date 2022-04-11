@@ -1,13 +1,13 @@
 package app.softwork.ratelimit
 
 import app.softwork.ratelimit.MockStorage.Companion.toClock
-import app.softwork.ratelimit.RateLimit.RequestResult.Allow
-import app.softwork.ratelimit.RateLimit.RequestResult.Block
-import io.ktor.application.*
+import app.softwork.ratelimit.RequestResult.*
+import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.http.HttpHeaders.RetryAfter
-import io.ktor.response.*
-import io.ktor.routing.*
+import io.ktor.server.application.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import io.ktor.server.testing.*
 import kotlinx.coroutines.*
 import kotlin.test.*
@@ -17,7 +17,7 @@ import kotlin.time.Duration.Companion.seconds
 @ExperimentalTime
 class RateLimitTest {
     @Test
-    fun installTest() = withTestApplication({
+    fun installTest() = testApplication {
         install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
             limit = 10
         }
@@ -26,16 +26,16 @@ class RateLimitTest {
                 call.respondText { "42" }
             }
         }
-    }) {
-        repeat(10) { assertEquals(HttpStatusCode.OK, handleRequest(HttpMethod.Get, "/").response.status()) }
-        with(handleRequest(HttpMethod.Get, "/").response) {
-            assertEquals(HttpStatusCode.TooManyRequests, status())
+
+        repeat(10) { assertEquals(HttpStatusCode.OK, client.get(urlString = "/").status) }
+        with(client.get("/")) {
+            assertEquals(HttpStatusCode.TooManyRequests, status)
             assertTrue(headers[RetryAfter]!!.toLong() <= 60 * 60)
         }
     }
 
     @Test
-    fun noHeader() = withTestApplication({
+    fun noHeader() = testApplication {
         install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
             limit = 10
             sendRetryAfterHeader = false
@@ -45,23 +45,23 @@ class RateLimitTest {
                 call.respondText { "42" }
             }
         }
-    }) {
-        repeat(10) { assertEquals(HttpStatusCode.OK, handleRequest(HttpMethod.Get, "/").response.status()) }
-        with(handleRequest(HttpMethod.Get, "/").response) {
-            assertEquals(HttpStatusCode.TooManyRequests, status())
+
+        repeat(10) { assertEquals(HttpStatusCode.OK, client.get("/").status) }
+        with(client.get("/")) {
+            assertEquals(HttpStatusCode.TooManyRequests, status)
             assertNull(headers[RetryAfter])
         }
     }
 
     @Test
-    fun rateLimitOnlyLoginEndpoint() = withTestApplication({
+    fun rateLimitOnlyLoginEndpoint() = testApplication {
         install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
             limit = 3
             skip { call ->
                 if (call.request.local.uri == "/login") {
-                    RateLimit.SkipResult.ExecuteRateLimit
+                    SkipResult.ExecuteRateLimit
                 } else {
-                    RateLimit.SkipResult.SkipRateLimit
+                    SkipResult.SkipRateLimit
                 }
             }
         }
@@ -73,15 +73,45 @@ class RateLimitTest {
                 call.respondText { "/login called" }
             }
         }
-    }) {
-        repeat(10) { assertEquals(HttpStatusCode.OK, handleRequest(HttpMethod.Get, "/").response.status()) }
-        repeat(3) { assertEquals(HttpStatusCode.OK, handleRequest(HttpMethod.Get, "/login").response.status()) }
-        assertEquals(HttpStatusCode.TooManyRequests, handleRequest(HttpMethod.Get, "/login").response.status())
-        repeat(10) { assertEquals(HttpStatusCode.OK, handleRequest(HttpMethod.Get, "/").response.status()) }
+
+        repeat(10) { assertEquals(HttpStatusCode.OK, client.get("/").status) }
+        repeat(3) { assertEquals(HttpStatusCode.OK, client.get("/login").status) }
+        assertEquals(HttpStatusCode.TooManyRequests, client.get("/login").status)
+        repeat(10) { assertEquals(HttpStatusCode.OK, client.get("/").status) }
     }
 
     @Test
-    fun blockAllowTest() = withTestApplication({
+    fun rateLimitOnlyLoginEndpointRouteScopePlugin() = testApplication {
+        routing {
+            get {
+                call.respondText { "42" }
+            }
+            route("/login") {
+                this@routing.install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
+                    limit = 3
+                    skip { call ->
+                        if (call.request.local.uri == "/login") {
+                            SkipResult.ExecuteRateLimit
+                        } else {
+                            SkipResult.SkipRateLimit
+                        }
+                    }
+
+                    this@route.get {
+                        call.respondText { "/login called" }
+                    }
+                }
+            }
+        }
+
+        repeat(10) { assertEquals(HttpStatusCode.OK, client.get("/").status) }
+        repeat(3) { assertEquals(HttpStatusCode.OK, client.get("/login").status) }
+        assertEquals(HttpStatusCode.TooManyRequests, client.get("/login").status)
+        repeat(10) { assertEquals(HttpStatusCode.OK, client.get("/").status) }
+    }
+
+    @Test
+    fun blockAllowTest() = testApplication {
         install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
             limit = 3
             alwaysBlock { host ->
@@ -99,19 +129,18 @@ class RateLimitTest {
                 call.respondText { "Hello" }
             }
         }
-    }) {
         repeat(5) {
-            assertEquals(HttpStatusCode.OK, handleRequest(HttpMethod.Get, "/") {
-                addHeader(HttpHeaders.Host, "allowedHost")
-            }.response.status())
+            assertEquals(HttpStatusCode.OK, client.get("/") {
+                header(HttpHeaders.Host, "allowedHost")
+            }.status)
         }
-        assertEquals(HttpStatusCode.TooManyRequests, handleRequest(HttpMethod.Get, "/") {
-            addHeader(HttpHeaders.Host, "blockedHost")
-        }.response.status())
+        assertEquals(HttpStatusCode.TooManyRequests, client.get("/") {
+            header(HttpHeaders.Host, "blockedHost")
+        }.status)
     }
 }
 
-suspend fun RateLimit.test(limit: Int, timeout: Duration) {
+internal suspend fun RateLimit.test(limit: Int, timeout: Duration) {
     repeat(limit) {
         assertEquals(Allow, isAllowed("a"))
     }
@@ -141,3 +170,6 @@ suspend fun RateLimit.test(limit: Int, timeout: Duration) {
         assertEquals(Allow, isAllowed("a"))
     }
 }
+
+internal operator fun Configuration.Companion.invoke(storage: Storage, block: Configuration.() -> Unit): RateLimit =
+    Configuration(storage).apply(block).build()

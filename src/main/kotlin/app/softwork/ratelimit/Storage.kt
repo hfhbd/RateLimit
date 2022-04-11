@@ -1,9 +1,11 @@
 package app.softwork.ratelimit
 
+import kotlinx.coroutines.*
 import kotlinx.datetime.*
 
 /**
  * [RateLimit] uses a defined storage provider implementing this interface to persist the request information used for rate limiting.
+ * [If you use a blocking database](https://ktor.io/docs/custom-plugins.html#databases), you should wrap your calls inside [withContext].
  */
 public interface Storage {
     /**
