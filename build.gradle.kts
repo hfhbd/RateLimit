@@ -33,6 +33,8 @@ dependencies {
     testImplementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
 
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("io.ktor:ktor-server-cio:$ktorVersion")
+    testImplementation("io.ktor:ktor-client-cio:$ktorVersion")
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
 
