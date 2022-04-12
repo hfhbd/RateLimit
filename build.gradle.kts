@@ -27,7 +27,7 @@ dependencies {
 
     testImplementation(kotlin("test"))
     // Apache 2, https://github.com/JetBrains/Exposed/releases/latest
-    val exposedVersion = "0.37.3"
+    val exposedVersion = "0.38.1"
     testImplementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     testImplementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     testImplementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
