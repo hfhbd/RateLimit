@@ -90,10 +90,9 @@ class RateLimitTest {
                 install(RateLimit(MockStorage())) {
                     limit = 3
                     ignoreCORSInstallationCheck = true
-
-                    this@route.get {
-                        call.respondText { "/login called" }
-                    }
+                }
+                get {
+                    call.respondText { "/login called" }
                 }
             }
         }

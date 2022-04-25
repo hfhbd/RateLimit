@@ -88,16 +88,15 @@ class DatabaseStorageTest {
     @Test
     fun integrationTest() = dbTest(setup = {
         SchemaUtils.create(Locks)
-    }) {db ->
+    }) { db ->
         val server = embeddedServer(CIO, port = 0) {
             install(CORS)
             routing {
                 install(RateLimit(storage = DBStorage(db = db, Clock.System))) {
                     limit = 10
-
-                    this@routing.get {
-                        call.respondText { "Success" }
-                    }
+                }
+                get {
+                    call.respondText { "Success" }
                 }
             }
         }.start(wait = false)
