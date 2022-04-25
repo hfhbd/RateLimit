@@ -12,10 +12,10 @@ class MockStorageTest {
     fun testMock() = runTest {
         val rateLimit: RateLimit = Configuration(
             storage = MockStorage(testTimeSource.toClock()),
-        ) {
+        ).apply {
             limit = 3
             timeout = 3.seconds
-        }
+        }.build()
         rateLimit.test(limit = 3, timeout = 3.seconds)
     }
 }

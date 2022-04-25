@@ -68,7 +68,10 @@ public class Configuration(public val storage: Storage) {
      */
     public var sendRetryAfterHeader: Boolean = true
 
-    public companion object { }
+    /**
+     * Ignores, if CORS is appplied before this plugin to prevent limiting CORS requests.
+     */
+    public var ignoreCORSInstallationCheck: Boolean = false
 
     /**
      * Build a non mutating copy
@@ -81,6 +84,7 @@ public class Configuration(public val storage: Storage) {
         limit = limit,
         timeout = timeout,
         skip = skip,
-        sendRetryAfterHeader = sendRetryAfterHeader
+        sendRetryAfterHeader = sendRetryAfterHeader,
+        ignoreCORSCheck = ignoreCORSInstallationCheck
     )
 }

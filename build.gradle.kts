@@ -45,6 +45,7 @@ kotlin {
         commonMain {
             dependencies {
                 api("io.ktor:ktor-server-core:$ktorVersion")
+                api("io.ktor:ktor-server-cors:$ktorVersion")
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
             }
         }
@@ -68,6 +69,7 @@ kotlin {
 
                 implementation("io.ktor:ktor-server-test-host:$ktorVersion")
                 implementation("io.ktor:ktor-server-cio:$ktorVersion")
+                implementation("io.ktor:ktor-server-auth:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")

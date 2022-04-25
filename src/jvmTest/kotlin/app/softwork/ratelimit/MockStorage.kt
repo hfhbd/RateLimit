@@ -3,8 +3,9 @@ package app.softwork.ratelimit
 import kotlinx.datetime.*
 import kotlin.time.*
 
+@ExperimentalTime
 class MockStorage(
-    override val clock: Clock
+    override val clock: Clock = TestTimeSource().toClock()
 ) : Storage {
     data class Requested(override val trial: Int, override val lastRequest: Instant): Storage.Requested
 
