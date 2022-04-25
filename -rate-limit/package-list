@@ -2,15 +2,15 @@ $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:app.softwork.ratelimit////PointingToDeclaration/-rate-limit/app.softwork.ratelimit/index.html
 $dokka.location:app.softwork.ratelimit//RateLimit/#app.softwork.ratelimit.Storage/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-rate-limit.html
-$dokka.location:app.softwork.ratelimit/Configuration.Companion///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/-companion/index.html
 $dokka.location:app.softwork.ratelimit/Configuration///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/index.html
 $dokka.location:app.softwork.ratelimit/Configuration/Configuration/#app.softwork.ratelimit.Storage/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/-configuration.html
 $dokka.location:app.softwork.ratelimit/Configuration/alwaysAllow/#kotlin.Function1[kotlin.String,kotlin.Boolean]/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/always-allow.html
 $dokka.location:app.softwork.ratelimit/Configuration/alwaysBlock/#kotlin.Function1[kotlin.String,kotlin.Boolean]/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/always-block.html
-$dokka.location:app.softwork.ratelimit/Configuration/host/#kotlin.Function1[io.ktor.server.application.ApplicationCall,kotlin.String]/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/host.html
+$dokka.location:app.softwork.ratelimit/Configuration/host/#kotlin.Function1[ApplicationCall,kotlin.String]/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/host.html
+$dokka.location:app.softwork.ratelimit/Configuration/ignoreCORSInstallationCheck/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/ignore-c-o-r-s-installation-check.html
 $dokka.location:app.softwork.ratelimit/Configuration/limit/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/limit.html
 $dokka.location:app.softwork.ratelimit/Configuration/sendRetryAfterHeader/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/send-retry-after-header.html
-$dokka.location:app.softwork.ratelimit/Configuration/skip/#kotlin.Function1[io.ktor.server.application.ApplicationCall,app.softwork.ratelimit.SkipResult]/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/skip.html
+$dokka.location:app.softwork.ratelimit/Configuration/skip/#kotlin.Function1[ApplicationCall,app.softwork.ratelimit.SkipResult]/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/skip.html
 $dokka.location:app.softwork.ratelimit/Configuration/storage/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/storage.html
 $dokka.location:app.softwork.ratelimit/Configuration/timeout/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-configuration/timeout.html
 $dokka.location:app.softwork.ratelimit/RequestResult.Allow///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-request-result/-allow/index.html
@@ -18,8 +18,8 @@ $dokka.location:app.softwork.ratelimit/RequestResult.Block///PointingToDeclarati
 $dokka.location:app.softwork.ratelimit/RequestResult.Block/Block/#kotlin.time.Duration/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-request-result/-block/-block.html
 $dokka.location:app.softwork.ratelimit/RequestResult.Block/retryAfter/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-request-result/-block/retry-after.html
 $dokka.location:app.softwork.ratelimit/RequestResult///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-request-result/index.html
-$dokka.location:app.softwork.ratelimit/SkipResult.ExecuteRateLimit///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-skip-result/-execute-rate-limit/index.html
-$dokka.location:app.softwork.ratelimit/SkipResult.SkipRateLimit///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-skip-result/-skip-rate-limit/index.html
+$dokka.location:app.softwork.ratelimit/SkipResult.ExecuteRateLimit///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-rate-limit/app.softwork.ratelimit/-skip-result/-execute-rate-limit/index.html
+$dokka.location:app.softwork.ratelimit/SkipResult.SkipRateLimit///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-rate-limit/app.softwork.ratelimit/-skip-result/-skip-rate-limit/index.html
 $dokka.location:app.softwork.ratelimit/SkipResult///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-skip-result/index.html
 $dokka.location:app.softwork.ratelimit/Storage.Requested///PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/-requested/index.html
 $dokka.location:app.softwork.ratelimit/Storage.Requested/lastRequest/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/-requested/last-request.html
@@ -28,6 +28,6 @@ $dokka.location:app.softwork.ratelimit/Storage///PointingToDeclaration/-rate-li
 $dokka.location:app.softwork.ratelimit/Storage/clock/#/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/clock.html
 $dokka.location:app.softwork.ratelimit/Storage/getOrNull/#kotlin.String/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/get-or-null.html
 $dokka.location:app.softwork.ratelimit/Storage/remove/#kotlin.String/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/remove.html
-$dokka.location:app.softwork.ratelimit/Storage/set/#kotlin.String#kotlin.Int#kotlinx.datetime.Instant/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/set.html
+$dokka.location:app.softwork.ratelimit/Storage/set/#kotlin.String#kotlin.Int#Instant/PointingToDeclaration/-rate-limit/app.softwork.ratelimit/-storage/set.html
 app.softwork.ratelimit
 
