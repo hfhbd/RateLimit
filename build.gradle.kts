@@ -1,7 +1,7 @@
 import java.util.*
 
 plugins {
-    kotlin("jvm") version "1.6.21"
+    kotlin("multiplatform") version "1.6.21"
     id("org.jetbrains.dokka") version "1.6.20"
     `maven-publish`
     signing
@@ -15,31 +15,68 @@ repositories {
 }
 
 kotlin {
+    jvm()
+
+    iosX64()
+    iosArm64()
+    iosArm32()
+    iosSimulatorArm64()
+
+    watchosX86()
+    watchosX64()
+    watchosArm32()
+    watchosArm64()
+    watchosSimulatorArm64()
+
+    tvosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+
+    macosX64()
+    macosArm64()
+    linuxX64()
+
     explicitApi()
-}
 
-dependencies {
-    // Apache 2, https://github.com/ktorio/ktor/releases/latest
-    val ktorVersion = "2.0.0"
+    sourceSets {
+        // Apache 2, https://github.com/ktorio/ktor/releases/latest
+        val ktorVersion = "2.0.0"
 
-    api("io.ktor:ktor-server-core:$ktorVersion")
-    api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
+        commonMain {
+            dependencies {
+                api("io.ktor:ktor-server-core:$ktorVersion")
+                api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation(kotlin("test"))
 
-    testImplementation(kotlin("test"))
-    // Apache 2, https://github.com/JetBrains/Exposed/releases/latest
-    val exposedVersion = "0.38.2"
-    testImplementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
-    testImplementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-    testImplementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
+                implementation("io.ktor:ktor-server-test-host:$ktorVersion")
+                implementation("io.ktor:ktor-server-cio:$ktorVersion")
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
+            }
+        }
 
-    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
-    testImplementation("io.ktor:ktor-server-cio:$ktorVersion")
-    testImplementation("io.ktor:ktor-client-cio:$ktorVersion")
+        val jvmTest by getting {
+            dependencies {
+                // Apache 2, https://github.com/JetBrains/Exposed/releases/latest
+                val exposedVersion = "0.38.2"
+                implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+                implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+                implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
 
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
+                implementation("io.ktor:ktor-server-test-host:$ktorVersion")
+                implementation("io.ktor:ktor-server-cio:$ktorVersion")
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
-    // EPL 1.0, https://github.com/h2database/h2database/releases/latest
-    testRuntimeOnly("com.h2database:h2:2.1.212")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
+
+                // EPL 1.0, https://github.com/h2database/h2database/releases/latest
+                runtimeOnly("com.h2database:h2:2.1.212")
+            }
+        }
+    }
 }
 
 tasks.dokkaHtml {
@@ -73,17 +110,14 @@ nexusPublishing {
     }
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
+val emptyJar by tasks.creating(Jar::class) { }
 
 publishing {
-    publications.create<MavenPublication>("mavenJava") {
-        from(components["java"])
-    }
     publications.all {
         this as MavenPublication
+        artifact(emptyJar) {
+            classifier = "javadoc"
+        }
         pom {
             name by "app.softwork RateLimit Library"
             description by "A ratelimit plugin for Ktor"
