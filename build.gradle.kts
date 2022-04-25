@@ -86,10 +86,12 @@ tasks.dokkaHtml {
             includes.from("README.md")
             reportUndocumented by true
             val sourceSetName = name
-            sourceLink {
-                localDirectory by file("src/$sourceSetName/kotlin")
-                remoteUrl by uri("https://github.com/hfhbd/RateLimit/tree/main/src/$sourceSetName/kotlin").toURL()
-                remoteLineSuffix by "#L"
+            File("src/$sourceSetName/kotlin").takeIf { it.exists() }?.let {
+                sourceLink {
+                    localDirectory by it
+                    remoteUrl by uri("https://github.com/hfhbd/RateLimit/tree/main/src/$sourceSetName/kotlin").toURL()
+                    remoteLineSuffix by "#L"
+                }
             }
         }
     }

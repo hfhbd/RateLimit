@@ -7,7 +7,7 @@ Limit the requests sent to a Ktor server with a timeout.
 
 ## Install
 
-This package is uploaded to MavenCentral.
+This package is uploaded to MavenCentral and supports JVM and all native targets as well.
 
 ````kotlin
 repositories {
@@ -21,7 +21,7 @@ dependencies {
 
 ## Usage
 
-Simple install it in your application module.
+Simple install it in your application module or for a specific route.
 
 ```kotlin
 val storage: Storage = // Storage implementation, required
@@ -42,7 +42,7 @@ install(RateLimit(storage = storage)) {
     }
 
     skip { call ->
-        if (call.request.local.uri == "/login") {
+        if (call.request.local.uri == "/login") { // alternative: install at this route only
             RateLimit.SkipResult.ExecuteRateLimit
         } else {
             RateLimit.SkipResult.SkipRateLimit
