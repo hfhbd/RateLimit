@@ -13,7 +13,6 @@ import kotlin.time.*
  *
  * @param storage containing the persistence rate limit hits.
  */
-@KtorDsl
 public fun RateLimit(storage: Storage): RouteScopedPlugin<Configuration> = createRouteScopedPlugin(
     name = "RateLimit",
     createConfiguration = { Configuration(storage) }
