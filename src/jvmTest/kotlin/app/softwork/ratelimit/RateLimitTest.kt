@@ -18,7 +18,7 @@ import kotlin.time.Duration.Companion.seconds
 class RateLimitTest {
     @Test
     fun installTest() = testApplication {
-        install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
+        testRateLimit {
             limit = 10
         }
         routing {
@@ -36,7 +36,7 @@ class RateLimitTest {
 
     @Test
     fun noHeader() = testApplication {
-        install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
+        testRateLimit {
             limit = 10
             sendRetryAfterHeader = false
         }
@@ -55,7 +55,7 @@ class RateLimitTest {
 
     @Test
     fun rateLimitOnlyLoginEndpoint() = testApplication {
-        install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
+        testRateLimit {
             limit = 3
             skip { call ->
                 if (call.request.local.uri == "/login") {
@@ -87,8 +87,9 @@ class RateLimitTest {
                 call.respondText { "42" }
             }
             route("/login") {
-                install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
+                install(RateLimit(MockStorage())) {
                     limit = 3
+                    ignoreCORSInstallationCheck = true
 
                     this@route.get {
                         call.respondText { "/login called" }
@@ -105,7 +106,7 @@ class RateLimitTest {
 
     @Test
     fun blockAllowTest() = testApplication {
-        install(RateLimit(MockStorage(TestTimeSource().toClock()))) {
+        testRateLimit {
             limit = 3
             alwaysBlock { host ->
                 host == "blockedHost"
@@ -117,6 +118,7 @@ class RateLimitTest {
                 call.request.local.host
             }
         }
+
         routing {
             get {
                 call.respondText { "Hello" }
@@ -164,5 +166,23 @@ internal suspend fun RateLimit.test(limit: Int, timeout: Duration) {
     }
 }
 
-internal operator fun Configuration.Companion.invoke(storage: Storage, block: Configuration.() -> Unit): RateLimit =
-    Configuration(storage).apply(block).build()
+@ExperimentalTime
+fun TestApplicationBuilder.testRateLimit(
+    storage: Storage = MockStorage(clock = TestTimeSource().toClock()),
+    block: Configuration.() -> Unit
+) {
+    application {
+        testRateLimit(storage, block)
+    }
+}
+
+@ExperimentalTime
+fun Application.testRateLimit(
+    storage: Storage = MockStorage(clock = TestTimeSource().toClock()),
+    block: Configuration.() -> Unit
+) {
+    install(RateLimit(storage)) {
+        ignoreCORSInstallationCheck = true
+        block()
+    }
+}

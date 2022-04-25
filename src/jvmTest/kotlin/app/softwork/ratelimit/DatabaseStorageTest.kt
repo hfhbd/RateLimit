@@ -8,6 +8,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.cio.*
 import io.ktor.server.engine.*
+import io.ktor.server.plugins.cors.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.*
@@ -76,10 +77,10 @@ class DatabaseStorageTest {
     fun dbBasedRateLimit() = dbTest(setup = {
         SchemaUtils.create(Locks)
     }) { db ->
-        val rateLimit = Configuration(storage = DBStorage(db = db, testTimeSource.toClock())) {
+        val rateLimit = Configuration(storage = DBStorage(db = db, testTimeSource.toClock())).apply {
             limit = 3
             timeout = 3.seconds
-        }
+        }.build()
 
         rateLimit.test(limit = 3, timeout = 3.seconds)
     }
@@ -89,6 +90,7 @@ class DatabaseStorageTest {
         SchemaUtils.create(Locks)
     }) {db ->
         val server = embeddedServer(CIO, port = 0) {
+            install(CORS)
             routing {
                 install(RateLimit(storage = DBStorage(db = db, Clock.System))) {
                     limit = 10

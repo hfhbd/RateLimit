@@ -3,6 +3,7 @@ package app.softwork.ratelimit
 import app.softwork.ratelimit.SkipResult.*
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.cors.*
 import io.ktor.server.response.*
 import io.ktor.util.*
 import kotlin.time.*
@@ -18,6 +19,13 @@ public fun RateLimit(storage: Storage): RouteScopedPlugin<Configuration> = creat
     createConfiguration = { Configuration(storage) }
 ) {
     val rateLimit = pluginConfig.build()
+
+    if (!rateLimit.ignoreCORSCheck) {
+        checkNotNull(application.pluginOrNull(CORS)) {
+            "Please install CORS before this plugin to prevent limiting CORS request " +
+                    "or suppress this check with ignoreCORSInstallationCheck = true."
+        }
+    }
 
     onCall { call ->
         val host = rateLimit.host(call)
@@ -41,7 +49,7 @@ public fun RateLimit(storage: Storage): RouteScopedPlugin<Configuration> = creat
 /**
  * Non mutating config
  */
-internal class RateLimit(
+internal data class RateLimit(
     val storage: Storage,
     val host: (ApplicationCall) -> String,
     val alwaysAllow: (String) -> Boolean,
@@ -49,7 +57,8 @@ internal class RateLimit(
     val limit: Int,
     val timeout: Duration,
     val skip: (ApplicationCall) -> SkipResult,
-    val sendRetryAfterHeader: Boolean
+    val sendRetryAfterHeader: Boolean,
+    val ignoreCORSCheck: Boolean
 ) {
     /**
      * Check if a [host] is allowed to request the requested resource.
