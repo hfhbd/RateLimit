@@ -68,8 +68,8 @@ public class Configuration(public val storage: Storage) {
      */
     public var sendRetryAfterHeader: Boolean = true
 
-    /**
-     * Ignores, if CORS is appplied before this plugin to prevent limiting CORS requests.
+    /** 
+     * When true, this plugin does not check, if CORS is appplied before this plugin to prevent limiting CORS requests.
      */
     public var ignoreCORSInstallationCheck: Boolean = false
 
