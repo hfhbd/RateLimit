@@ -46,7 +46,7 @@ kotlin {
             dependencies {
                 api("io.ktor:ktor-server-core:$ktorVersion")
                 api("io.ktor:ktor-server-cors:$ktorVersion")
-                api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
+                api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.3")
             }
         }
         commonTest {
