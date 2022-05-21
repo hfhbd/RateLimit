@@ -124,13 +124,19 @@ class RateLimitTest {
             }
         }
         repeat(5) {
-            assertEquals(HttpStatusCode.OK, client.get("/") {
-                header(HttpHeaders.Host, "allowedHost")
-            }.status)
+            assertEquals(
+                expected = HttpStatusCode.OK,
+                actual = client.get("/") {
+                    header(HttpHeaders.Host, "allowedHost")
+                }.status
+            )
         }
-        assertEquals(HttpStatusCode.TooManyRequests, client.get("/") {
-            header(HttpHeaders.Host, "blockedHost")
-        }.status)
+        assertEquals(
+            expected = HttpStatusCode.TooManyRequests,
+            actual = client.get("/") {
+                header(HttpHeaders.Host, "blockedHost")
+            }.status
+        )
     }
 }
 

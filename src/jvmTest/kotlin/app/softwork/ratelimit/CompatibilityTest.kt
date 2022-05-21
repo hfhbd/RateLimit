@@ -5,7 +5,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.ktor.server.plugins.cors.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.testing.*
@@ -40,13 +40,19 @@ class CompatibilityTest {
             }
         }
         repeat(5) {
-            assertEquals(actual = client.get("/foo") {
-                basicAuth("foo", "bar")
-            }.status, expected = HttpStatusCode.OK)
+            assertEquals(
+                actual = client.get("/foo") {
+                    basicAuth("foo", "bar")
+                }.status,
+                expected = HttpStatusCode.OK
+            )
         }
-        assertEquals(actual = client.get("/foo") {
-            basicAuth("foo", "bar")
-        }.status, expected = HttpStatusCode.TooManyRequests)
+        assertEquals(
+            actual = client.get("/foo") {
+                basicAuth("foo", "bar")
+            }.status,
+            expected = HttpStatusCode.TooManyRequests
+        )
     }
 
     @Test

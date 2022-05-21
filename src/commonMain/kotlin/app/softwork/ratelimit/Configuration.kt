@@ -22,7 +22,7 @@ public class Configuration(public val storage: Storage) {
 
     /**
      * Override the handler to always allow a [host]. Returns true, if the [host] should be allowed.
-     * Default value is false.
+     * The default value is false.
      */
     public fun alwaysAllow(block: (String) -> Boolean) {
         alwaysAllow = block
@@ -32,7 +32,7 @@ public class Configuration(public val storage: Storage) {
 
     /**
      * Override the handler to always block a [host]. Returns true, if the [host] should be blocked.
-     * Default value is false.
+     * The default value is false.
      */
     public fun alwaysBlock(block: (String) -> Boolean) {
         alwaysBlock = block
@@ -53,7 +53,8 @@ public class Configuration(public val storage: Storage) {
     public var timeout: Duration = 1.hours
 
     /**
-     * Overrides the handler to skip a [call] from the rate limit check. Return [SkipResult.SkipRateLimit], if the [call] should be skipped.
+     * Overrides the handler to skip a [call] from the rate limit check.
+     * Return [SkipResult.SkipRateLimit], if the [call] should be skipped.
      * Default value is [SkipResult.ExecuteRateLimit], every [call] will be checked.
      */
     public fun skip(block: (ApplicationCall) -> SkipResult) {
@@ -63,13 +64,14 @@ public class Configuration(public val storage: Storage) {
     private var skip: (ApplicationCall) -> SkipResult = { SkipResult.ExecuteRateLimit }
 
     /**
-     * Add the [HttpHeaders.RetryAfter][io.ktor.http.HttpHeaders.RetryAfter] header to the response, if the [host] is blocked by the rate limit check or by the [alwaysBlock] function.
-     * Default value is true.
+     * Add the [HttpHeaders.RetryAfter][io.ktor.http.HttpHeaders.RetryAfter] header to the response,
+     * if the [host] is blocked by the rate limit check or by the [alwaysBlock] function.
+     * The default value is true.
      */
     public var sendRetryAfterHeader: Boolean = true
 
     /**
-     * When true, this plugin does not check, if CORS is appplied before this plugin to prevent limiting CORS requests.
+     * When true, this plugin does not check if CORS is applied before this plugin to prevent limiting CORS requests.
      */
     public var ignoreCORSInstallationCheck: Boolean = false
 

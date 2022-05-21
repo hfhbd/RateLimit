@@ -1,0 +1,58 @@
+public final class app/softwork/ratelimit/Configuration {
+	public fun <init> (Lapp/softwork/ratelimit/Storage;)V
+	public final fun alwaysAllow (Lkotlin/jvm/functions/Function1;)V
+	public final fun alwaysBlock (Lkotlin/jvm/functions/Function1;)V
+	public final fun getIgnoreCORSInstallationCheck ()Z
+	public final fun getLimit ()I
+	public final fun getSendRetryAfterHeader ()Z
+	public final fun getStorage ()Lapp/softwork/ratelimit/Storage;
+	public final fun getTimeout-UwyO8pc ()J
+	public final fun host (Lkotlin/jvm/functions/Function1;)V
+	public final fun setIgnoreCORSInstallationCheck (Z)V
+	public final fun setLimit (I)V
+	public final fun setSendRetryAfterHeader (Z)V
+	public final fun setTimeout-LRDsOJo (J)V
+	public final fun skip (Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class app/softwork/ratelimit/RateLimitKt {
+	public static final fun RateLimit (Lapp/softwork/ratelimit/Storage;)Lio/ktor/server/application/RouteScopedPlugin;
+}
+
+public abstract interface class app/softwork/ratelimit/RequestResult {
+}
+
+public final class app/softwork/ratelimit/RequestResult$Allow : app/softwork/ratelimit/RequestResult {
+	public static final field INSTANCE Lapp/softwork/ratelimit/RequestResult$Allow;
+}
+
+public final class app/softwork/ratelimit/RequestResult$Block : app/softwork/ratelimit/RequestResult {
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-UwyO8pc ()J
+	public final fun copy-LRDsOJo (J)Lapp/softwork/ratelimit/RequestResult$Block;
+	public static synthetic fun copy-LRDsOJo$default (Lapp/softwork/ratelimit/RequestResult$Block;JILjava/lang/Object;)Lapp/softwork/ratelimit/RequestResult$Block;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRetryAfter-UwyO8pc ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/softwork/ratelimit/SkipResult : java/lang/Enum {
+	public static final field ExecuteRateLimit Lapp/softwork/ratelimit/SkipResult;
+	public static final field SkipRateLimit Lapp/softwork/ratelimit/SkipResult;
+	public static fun valueOf (Ljava/lang/String;)Lapp/softwork/ratelimit/SkipResult;
+	public static fun values ()[Lapp/softwork/ratelimit/SkipResult;
+}
+
+public abstract interface class app/softwork/ratelimit/Storage {
+	public abstract fun getClock ()Lkotlinx/datetime/Clock;
+	public abstract fun getOrNull (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun remove (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun set (Ljava/lang/String;ILkotlinx/datetime/Instant;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class app/softwork/ratelimit/Storage$Requested {
+	public abstract fun getLastRequest ()Lkotlinx/datetime/Instant;
+	public abstract fun getTrial ()I
+}
+

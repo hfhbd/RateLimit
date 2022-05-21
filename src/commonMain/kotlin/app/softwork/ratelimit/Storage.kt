@@ -4,8 +4,10 @@ import kotlinx.coroutines.*
 import kotlinx.datetime.*
 
 /**
- * [RateLimit] uses a defined storage provider implementing this interface to persist the request information used for rate limiting.
- * [If you use a blocking database](https://ktor.io/docs/custom-plugins.html#databases), you should wrap your calls inside [withContext].
+ * [RateLimit] uses a defined storage provider implementing this interface to persist the request information used
+ * for rate limiting.
+ * [If you use a blocking database](https://ktor.io/docs/custom-plugins.html#databases),
+ * you should wrap your calls inside [withContext].
  */
 public interface Storage {
     /**
@@ -14,7 +16,8 @@ public interface Storage {
     public suspend fun getOrNull(host: String): Requested?
 
     /**
-     * Set the current request information for this [host]. [trial] counts the previous trials, while [lastRequest] represents the time of the last request.
+     * Set the current request information for this [host].
+     * counts the previous trials, while [lastRequest] represents the time of the last request.
      */
     public suspend fun set(host: String, trial: Int, lastRequest: Instant)
 
