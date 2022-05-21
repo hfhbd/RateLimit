@@ -7,7 +7,7 @@ import kotlin.time.*
 class MockStorage(
     override val clock: Clock = TestTimeSource().toClock()
 ) : Storage {
-    data class Requested(override val trial: Int, override val lastRequest: Instant): Storage.Requested
+    data class Requested(override val trial: Int, override val lastRequest: Instant) : Storage.Requested
 
     private val storage: MutableMap<String, Storage.Requested> = mutableMapOf()
 

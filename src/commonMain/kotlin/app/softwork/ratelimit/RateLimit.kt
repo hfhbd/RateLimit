@@ -3,9 +3,8 @@ package app.softwork.ratelimit
 import app.softwork.ratelimit.SkipResult.*
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.plugins.cors.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.response.*
-import io.ktor.util.*
 import kotlin.time.*
 
 /**
@@ -22,7 +21,7 @@ public fun RateLimit(storage: Storage): RouteScopedPlugin<Configuration> = creat
     if (!rateLimit.ignoreCORSCheck) {
         checkNotNull(application.pluginOrNull(CORS)) {
             "Please install CORS before this plugin to prevent limiting CORS request " +
-                    "or suppress this check with ignoreCORSInstallationCheck = true."
+                "or suppress this check with ignoreCORSInstallationCheck = true."
         }
     }
 

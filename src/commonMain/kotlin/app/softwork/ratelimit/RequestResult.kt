@@ -13,7 +13,9 @@ public sealed interface RequestResult {
 
     /**
      * The request was blocked.
-     * @param retryAfter if [Configuration.sendRetryAfterHeader] is true, this duration is sent back as in the header `RetryAfter`.
+     *
+     * If [Configuration.sendRetryAfterHeader] is true,
+     * the duration in [retryAfter] is sent back in the header `RetryAfter`.
      */
     public data class Block(public val retryAfter: Duration) : RequestResult
 }

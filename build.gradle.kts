@@ -1,4 +1,5 @@
 import java.util.*
+import io.gitlab.arturbosch.detekt.*
 
 plugins {
     kotlin("multiplatform") version "1.6.21"
@@ -6,6 +7,9 @@ plugins {
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.10.0"
+    id("org.jetbrains.kotlinx.kover") version "0.5.1"
+    id("io.gitlab.arturbosch.detekt") version "1.20.0"
 }
 
 group = "app.softwork"
@@ -156,5 +160,43 @@ publishing {
         val signingPassword = System.getProperty("signing.password") ?: System.getenv("SIGNING_PASSWORD")
         useInMemoryPgpKeys(key, signingPassword)
         sign(publishing.publications)
+    }
+}
+
+detekt {
+    source = files(rootProject.rootDir)
+    parallel = true
+    buildUponDefaultConfig = true
+}
+
+dependencies {
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
+}
+
+tasks {
+    fun SourceTask.config() {
+        include("**/*.kt")
+        exclude("**/*.kts")
+        exclude("**/resources/**")
+        exclude("**/generated/**")
+        exclude("**/build/**")
+    }
+    withType<DetektCreateBaselineTask>().configureEach {
+        config()
+    }
+    withType<Detekt>().configureEach {
+        config()
+
+        reports {
+            sarif.required.set(true)
+        }
+    }
+}
+
+tasks.koverVerify {
+    rule {
+        bound {
+            minValue = 85
+        }
     }
 }
