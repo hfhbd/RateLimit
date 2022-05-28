@@ -26,19 +26,24 @@ public fun RateLimit(storage: Storage): RouteScopedPlugin<Configuration> = creat
     }
 
     onCall { call ->
-        val host = rateLimit.host(call)
-        if (rateLimit.skip(call) == SkipRateLimit) {
-            return@onCall
-        }
-        when (val isAllowed = rateLimit.isAllowed(host)) {
-            is RequestResult.Allow -> {
+        when (rateLimit.skip(call)) {
+            SkipRateLimit -> {
                 return@onCall
             }
-            is RequestResult.Block -> {
-                if (rateLimit.sendRetryAfterHeader) {
-                    call.response.header(HttpHeaders.RetryAfter, isAllowed.retryAfter.inWholeSeconds)
+            ExecuteRateLimit -> {
+                val host = rateLimit.host(call)
+                when (val isAllowed = rateLimit.isAllowed(host)) {
+                    is RequestResult.Allow -> {
+                        return@onCall
+                    }
+
+                    is RequestResult.Block -> {
+                        if (rateLimit.sendRetryAfterHeader) {
+                            call.response.header(HttpHeaders.RetryAfter, isAllowed.retryAfter.inWholeSeconds)
+                        }
+                        call.respond(HttpStatusCode.TooManyRequests)
+                    }
                 }
-                call.respond(HttpStatusCode.TooManyRequests)
             }
         }
     }

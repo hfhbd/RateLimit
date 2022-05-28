@@ -63,3 +63,33 @@ Apache 2
 # Package app.softwork.ratelimit
 
 The package contains the feature `RateLimit` and the `Storage` implementation.
+```mermaid
+flowchart
+    IncomingCall[Incoming Call] --> Skipping{Should skip rate limit check?}
+    
+    Skipping -->|Yes| Allow[Allow request - Execute next pipeline]
+    Skipping -->|No| Host(Retrieve host from call)
+    Host --> IsHostAllowed{Is host always allowed?}
+    IsHostAllowed -->|No| AlwaysBlock{Should always block host?}
+    AlwaysBlock -->|No| Previous[Get previous record for this host from storage]
+    Previous --> Exists{Found previous record?}
+    Exists -->|Not found| Save[Create new record]
+    Save --> Allow
+    Exists -->|Found| Reached{Is this trial < limit?}
+    Reached -->|Below limit| Update[Increase trial]
+    Update --> Allow
+    Reached -->|Reached ratelimit| IsTimeoutOver{Request after last timeout?}
+    IsTimeoutOver -->|Yes| RemoveFromStorage[Remove last record from storage]
+    RemoveFromStorage --> Allow
+    
+    IsTimeoutOver --->|No| Block
+    
+    IsHostAllowed -->|Yes| Allow
+    AlwaysBlock -->|Yes| Block[Block call]
+   
+    
+    Block --> ShouldSendRetryHeader{Should Send Retry Header?}
+    ShouldSendRetryHeader -->|Yes| AddHeader[Add Header: RetryAfter]
+    ShouldSendRetryHeader -->|No| Respond
+    AddHeader --> Respond[Respond with HttpCode 429: Too Many Requests]
+```
