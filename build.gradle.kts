@@ -2,7 +2,7 @@ import java.util.*
 import io.gitlab.arturbosch.detekt.*
 
 plugins {
-    kotlin("multiplatform") version "1.7.0"
+    kotlin("multiplatform") version "1.7.10"
     id("org.jetbrains.dokka") version "1.7.0"
     `maven-publish`
     signing
