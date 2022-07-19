@@ -2,8 +2,8 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>FunctionNaming:RateLimit.kt$ public fun RateLimit(storage: Storage): RouteScopedPlugin&lt;Configuration></ID>
+    <ID>FunctionNaming:RateLimit.kt$public fun RateLimit(storage: Storage): RouteScopedPlugin&lt;Configuration></ID>
     <ID>MagicNumber:Configuration.kt$Configuration$1000</ID>
-    <ID>ReturnCount:RateLimit.kt$RateLimit$ internal suspend fun isAllowed(host: String): RequestResult</ID>
+    <ID>ReturnCount:RateLimit.kt$RateLimit$internal suspend fun isAllowed(host: String): RequestResult</ID>
   </CurrentIssues>
 </SmellBaseline>
