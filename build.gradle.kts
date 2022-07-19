@@ -3,11 +3,11 @@ import io.gitlab.arturbosch.detekt.*
 
 plugins {
     kotlin("multiplatform") version "1.7.10"
-    id("org.jetbrains.dokka") version "1.7.0"
+    id("org.jetbrains.dokka") version "1.7.10"
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.10.1"
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.11.0"
     id("org.jetbrains.kotlinx.kover") version "0.5.1"
     id("io.gitlab.arturbosch.detekt") version "1.20.0"
 }
@@ -76,7 +76,7 @@ kotlin {
                 implementation("io.ktor:ktor-server-auth:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 
                 // EPL 1.0, https://github.com/h2database/h2database/releases/latest
                 runtimeOnly("com.h2database:h2:2.1.214")
@@ -170,7 +170,7 @@ detekt {
 }
 
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0")
     dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.3.2")
 }
 
