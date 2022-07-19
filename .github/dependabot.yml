@@ -9,15 +9,12 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    reviewers:
-      - "hfhbd"
     assignees:
       - "hfhbd"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "daily"
-    reviewers:
-      - "hfhbd"
     assignees:
       - "hfhbd"
+    rebase-strategy: "disabled"
