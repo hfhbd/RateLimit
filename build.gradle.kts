@@ -10,6 +10,7 @@ plugins {
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.11.0"
     id("org.jetbrains.kotlinx.kover") version "0.5.1"
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
+    id("app.cash.licensee") version "1.5.0"
 }
 
 group = "app.softwork"
@@ -200,4 +201,9 @@ tasks.koverVerify {
             minValue = 85
         }
     }
+}
+
+licensee {
+    allow("Apache-2.0")
+    allow("MIT")
 }
