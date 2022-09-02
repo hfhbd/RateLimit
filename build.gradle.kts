@@ -204,6 +204,11 @@ kover {
             }
         }
     }
+    filters {
+        classes {
+            excludes += listOf("org.h2.*")
+        }
+    }
 }
 
 licensee {
