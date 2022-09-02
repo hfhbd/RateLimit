@@ -1,5 +1,5 @@
-import java.util.*
 import io.gitlab.arturbosch.detekt.*
+import java.util.*
 
 plugins {
     kotlin("multiplatform") version "1.7.10"
@@ -195,10 +195,13 @@ tasks {
     }
 }
 
-tasks.koverVerify {
-    rule {
-        bound {
-            minValue = 85
+kover {
+    verify {
+        onCheck.set(true)
+        rule {
+            bound {
+                minValue = 100
+            }
         }
     }
 }
