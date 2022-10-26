@@ -10,7 +10,7 @@ plugins {
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.12.1"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
-    id("app.cash.licensee") version "1.5.0"
+    id("app.cash.licensee") version "1.6.0"
 }
 
 group = "app.softwork"
