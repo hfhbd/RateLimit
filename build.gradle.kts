@@ -172,7 +172,7 @@ detekt {
 
 dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0")
-    dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.4.0")
+    dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.4.1")
 }
 
 tasks {
