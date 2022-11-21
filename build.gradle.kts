@@ -9,7 +9,7 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.12.1"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
-    id("io.gitlab.arturbosch.detekt") version "1.21.0"
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
     id("app.cash.licensee") version "1.6.0"
 }
 
