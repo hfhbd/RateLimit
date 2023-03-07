@@ -6,7 +6,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.8.10"
     `maven-publish`
     signing
-    id("io.github.gradle-nexus.publish-plugin") version "1.2.0"
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.0"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
