@@ -77,7 +77,7 @@ kotlin {
                 implementation("io.ktor:ktor-server-auth:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
 
                 // EPL 1.0, https://github.com/h2database/h2database/releases/latest
                 runtimeOnly("com.h2database:h2:2.1.214")
