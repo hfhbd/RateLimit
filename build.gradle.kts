@@ -171,7 +171,7 @@ detekt {
 }
 
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.0")
     dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.4.4")
 }
 
