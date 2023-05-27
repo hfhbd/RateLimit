@@ -20,6 +20,8 @@ repositories {
 }
 
 kotlin {
+    jvmToolchain(8)
+    
     jvm()
 
     iosX64()
