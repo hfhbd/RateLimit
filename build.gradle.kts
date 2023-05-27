@@ -165,7 +165,7 @@ publishing {
 }
 
 detekt {
-    sources.from(files(rootProject.rootDir))
+    source.from(files(rootProject.rootDir))
     autoCorrect = true
     parallel = true
     buildUponDefaultConfig = true
