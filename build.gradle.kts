@@ -8,7 +8,7 @@ plugins {
     id("signing")
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.1"
-    id("org.jetbrains.kotlinx.kover") version "0.6.1"
+    id("org.jetbrains.kotlinx.kover") version "0.7.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.0"
     id("app.cash.licensee") version "1.7.0"
 }
