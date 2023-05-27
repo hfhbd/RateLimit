@@ -4,8 +4,8 @@ import java.util.*
 plugins {
     kotlin("multiplatform") version "1.8.21"
     id("org.jetbrains.dokka") version "1.8.10"
-    `maven-publish`
-    signing
+    id("maven-publish")
+    id("signing")
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.1"
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
@@ -119,10 +119,10 @@ nexusPublishing {
     }
 }
 
-val emptyJar by tasks.creating(Jar::class) { }
+val emptyJar by tasks.registering(Jar::class) { }
 
 publishing {
-    publications.all {
+    publications.configureEach {
         this as MavenPublication
         artifact(emptyJar) {
             classifier = "javadoc"
@@ -165,13 +165,14 @@ publishing {
 }
 
 detekt {
-    source = files(rootProject.rootDir)
+    sources.from(files(rootProject.rootDir))
+    autoCorrect = true
     parallel = true
     buildUponDefaultConfig = true
 }
 
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
     dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.4.4")
 }
 
