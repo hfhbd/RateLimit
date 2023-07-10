@@ -29,7 +29,7 @@ jobs:
           java-version: 11
       - name: Generate Docs
         run: ./gradlew dokkaHtml
-      - uses: actions/upload-pages-artifact@v1
+      - uses: actions/upload-pages-artifact@v2
         with:
           path: build/dokka/html
       - name: Deploy to GitHub Pages
