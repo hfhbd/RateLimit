@@ -82,7 +82,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
                 // EPL 1.0, https://github.com/h2database/h2database/releases/latest
-                runtimeOnly("com.h2database:h2:2.2.220")
+                runtimeOnly("com.h2database:h2:2.2.222")
             }
         }
     }
