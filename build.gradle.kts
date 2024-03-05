@@ -3,7 +3,7 @@ import java.util.*
 
 plugins {
     kotlin("multiplatform") version "1.8.22"
-    id("org.jetbrains.dokka") version "1.9.10"
+    id("org.jetbrains.dokka") version "1.9.20"
     id("maven-publish")
     id("signing")
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
