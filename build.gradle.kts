@@ -69,7 +69,7 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 // Apache 2, https://github.com/JetBrains/Exposed/releases/latest
-                val exposedVersion = "0.48.0"
+                val exposedVersion = "0.49.0"
                 implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
                 implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
                 implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
